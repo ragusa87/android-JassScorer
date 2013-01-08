@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Chibre</string>
+    <string name="app_author">Laurent Constantin</string>
+
+    <!-- Legende -->
+    <string name="type_1">Simple</string>
+    <string name="type_2">Double</string>
+    <string name="type_3">De haut en bas</string>
+    <string name="type_4">De bas en haut</string>
+    <string name="type_5">Slalom</string>
+    <string name="type_6">Tout attout</string>
+
+    <string-array name="type_array">
+        <item>@string/type_1</item>
+        <item>@string/type_2</item>
+        <item>@string/type_3</item>
+        <item>@string/type_4</item>
+        <item>@string/type_5</item>
+        <item>@string/type_6</item>
+    </string-array>
+
+    <!-- Equipes -->
+    <string name="team_1">Equipe 1</string>
+    <string name="team_2">Equipe 2</string>
+    <string name="score_input_1">Saisie des points pour l\'équipe 1</string>
+    <string name="score_input_2">Saisie des points pour l\'équipe 2</string>
+    <string name="score">Score: 0</string>
+
+    <!-- boutons -->
+    <string name="announcement_btn">Annonce</string>
+    <string name="score_btn">Calculer le score</string>
+
+    <!-- menu -->
+    <string name="menu_reset">Remise à zéro</string>
+    <string name="menu_about">A propos</string>
+
+    <!-- messages d'erreur et de confirmations -->
+    <string name="error_empty">Les champs sont vides</string>
+    <string name="error_full">Seul un champ doit être remplis</string>
+    <string name="error_high_value">Le score est trop élevé</string>
+    <string name="score_reset_confirm">Voulez-vous vraiment remettre à zéro le score?</string>
+
+    <!-- A Propos -->
+    <string name="about_site_url">http://github.com/Ragusa87/Android-Chibre</string>
+    <string name="about_site">Site Web</string>
+    <string name="about_licence">Licence</string>
+
+</resources>

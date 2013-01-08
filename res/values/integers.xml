@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Nombre d'etoiles dans la ratingBar -->
+    <integer name="numer_stars">6</integer>
+
+    <!-- Coefficient de la partie suivant le nombre d'etoiles actives -->
+    <integer-array name="coeff">
+
+        <!-- simple -->
+        <item>1</item>
+        <!-- double -->
+        <item>2</item>
+        <!-- de haut en bas -->
+        <item>3</item>
+        <!-- de bas en haut -->
+        <item>4</item>
+        <!-- slalom -->
+        <item>5</item>
+        <!-- Tout attout 2x -->
+        <item>2</item>
+    </integer-array>
+
+</resources>

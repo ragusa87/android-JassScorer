@@ -1,0 +1,126 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    tools:context=".MainActivity" >
+
+    <RatingBar
+        android:id="@+id/multiply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:indeterminate="false"
+        android:numStars="@integer/numer_stars"
+        android:stepSize="1" />
+    <TextView
+        android:id="@+id/multiplyLegend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/multiply"
+        android:layout_alignParentTop="true"
+        android:text="@string/type_1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/multiply"
+        android:layout_alignRight="@+id/multiply"
+        android:layout_below="@+id/multiply"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/team1"
+            style="@style/Team1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.98"
+            android:text="@string/team_1"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/txt_score1"
+             style="@style/Team1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.97"
+            android:text="@string/score"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/input_score1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.98"
+            android:ems="10"
+            android:hint="@string/score_input_1"
+            android:inputType="numberSigned"
+            android:singleLine="true"
+            android:imeOptions="actionDone"  />
+
+        <TextView
+            android:id="@+id/team2"
+            style="@style/Team2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.99"
+            android:text="@string/team_2"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/txt_score2"
+             style="@style/Team2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.99"
+            android:text="@string/score"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/input_score2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.01"
+            android:ems="10"
+            android:hint="@string/score_input_2"
+            android:inputType="numberSigned"
+            android:singleLine="true"
+            android:imeOptions="actionDone"  />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:measureWithLargestChild="false"
+            android:orientation="vertical"
+            android:textAlignment="center" >
+
+            <Button
+                android:id="@+id/btn_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="@string/score_btn"
+                android:onClick="onClick"
+             
+                android:textAllCaps="true" />
+            <Button
+                android:id="@+id/btn_announcement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="@string/announcement_btn" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

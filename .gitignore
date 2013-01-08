@@ -1,0 +1,15 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+bin/*
+*.pdf
+.DS_Store
+*/.DS_Store
+
+# android
+proguard-project.txt
+project.properties

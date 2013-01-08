@@ -300,7 +300,7 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 			max = MATCH_TOUTATOUT_VALUE;
 
 		// Les points sont trop eleves (accepte le bonus de match)
-		if (point > max && point != max + BONUS) {
+		if (v.getId() == R.id.btn_score &&  point > max && point != max + BONUS) {
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.error_high_value), Toast.LENGTH_LONG)
 					.show();

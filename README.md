@@ -42,6 +42,6 @@ Ce programme est sous licence [Attribution-NonCommercial-ShareAlike 3.0 Unported
 
 Le logo est tiré de [Wikipedia](http://en.wikipedia.org/wiki/File:Playing_card_club_A.svg) sous licence [Attribution-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-sa/3.0/deed.en). Il a été réalisée par [Cburnett](http://en.wikipedia.org/wiki/User:Cburnett).
 
-La boîte de dialogue "A propos" est tirée du dépot [markers-for-android-updated](https://github.com/FunkyAndroid/markers-for-android-updated/tree/master/res/drawable-xhdpi) est est sous licence "Apache 2"
+La boîte de dialogue "A propos" est tirée du dépot [markers-for-android-updated](https://github.com/FunkyAndroid/markers-for-android-updated/tree/master/res/drawable-xhdpi) et est sous licence "Apache 2"
 
 	Pour me contacter: constantin(dot)laurent[4t]gmail.com

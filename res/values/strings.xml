@@ -10,7 +10,7 @@
     <string name="type_3">De haut en bas</string>
     <string name="type_4">De bas en haut</string>
     <string name="type_5">Slalom</string>
-    <string name="type_6">Tout attout</string>
+    <string name="type_6">Tout-atout</string>
 
     <string-array name="type_array">
         <item>@string/type_1</item>

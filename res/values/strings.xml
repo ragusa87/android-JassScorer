@@ -43,7 +43,7 @@
     <string name="score_reset_confirm">Voulez-vous vraiment remettre à zéro le score?</string>
 
     <!-- A Propos -->
-    <string name="about_site_url">http://github.com/Ragusa87/Android-Chibre</string>
+    <string name="about_site_url">http://github.com/ragusa87/android-Chibre</string>
     <string name="about_site">Site Web</string>
     <string name="about_licence">Licence</string>
 

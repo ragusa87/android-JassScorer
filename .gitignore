@@ -6,10 +6,14 @@
 *.ear
 
 bin/*
+bin/classes/*
 *.pdf
 .DS_Store
 */.DS_Store
+*/*/.DS_Store
+*/*/*/.DS_Store
 
 # android
 proguard-project.txt
 project.properties
+bin/classes/*

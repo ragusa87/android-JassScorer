@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	// Nombre de points en cas de match
 	private final int BONUS = 100;
 	private final int MATCH_VALUE = 157;
-	private final int MATCH_TOUTATOUT_VALUE = 262;
+	private final int MATCH_TOUTATOUT_VALUE = 259;
 	
 	// Elements de controles
 	private RatingBar ratingBar;

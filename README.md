@@ -16,7 +16,7 @@ Chaque variante de jeu a un coefficient qui lui est propre.
 	
 - Les coéfficient sont respectivement de : 1,2,3,4,5,2.
 - Le score et les annonces sont à saisir avec un coefficient de 1, le reste est calculé automatiquement.
-- Une partie vaut 157 points, et 262 points en tout-atout.
+- Une partie vaut 157 points, et 259 points en tout-atout.
 - En cas de match, vous devez saisir 100 points de plus (257 points ou 362 points).
 Il est aussi possible de saisir 0 pour l'équipe perdante afin de valider un match.
 	

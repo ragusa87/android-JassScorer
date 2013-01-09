@@ -7,10 +7,10 @@
     <!-- Legende -->
     <string name="type_1">Simple</string>
     <string name="type_2">Double</string>
-    <string name="type_3">downward</string>
-    <string name="type_4">upwards</string>
+    <string name="type_3">De haut en bas</string>
+    <string name="type_4">De bas en haut</string>
     <string name="type_5">Slalom</string>
-    <string name="type_6">Any asset</string>
+    <string name="type_6">Tout-atout</string>
 
     <string-array name="type_array">
         <item>@string/type_1</item>
@@ -22,8 +22,8 @@
     </string-array>
 
     <!-- Equipes -->
-    <string name="team_1">Team 1 :</string>
-    <string name="team_2">Team 2 :</string>
+    <string name="team_1">Equipe 1 :</string>
+    <string name="team_2">Equipe 2 :</string>
     
     <plurals name="points">
         <item quantity="zero">%d point</item>
@@ -31,27 +31,27 @@
         <item quantity="other">%d points</item>
     </plurals> 
     
-    <string name="score_input_1">Input for team 1</string>
-    <string name="score_input_2">Input for team 2</string>
+    <string name="score_input_1">Saisie des points pour l\'équipe 1</string>
+    <string name="score_input_2">Saisie des points pour l\'équipe 2</string>
 
     <!-- boutons -->
-    <string name="announcement_btn">announcement</string>
-    <string name="score_btn">Score</string>
+    <string name="announcement_btn">Annonce</string>
+    <string name="score_btn">Calculer le score</string>
 
     <!-- menu -->
-    <string name="menu_reset">Reset</string>
-    <string name="menu_about">About</string>
+    <string name="menu_reset">Remise à zéro</string>
+    <string name="menu_about">A propos</string>
 
     <!-- messages d'erreur et de confirmations -->
-    <string name="error_empty">Fields are empty</string>
-    <string name="error_full">Only one field should be filled</string>
-    <string name="error_high_value">Score is too high</string>
-    <string name="score_reset_confirm">Do you really want to reset?</string>
+    <string name="error_empty">Les champs sont vides</string>
+    <string name="error_full">Seul un champ doit être remplis</string>
+    <string name="error_high_value">Le score est trop élevé</string>
+    <string name="score_reset_confirm">Voulez-vous vraiment mettre le score à zéro ?</string>
 
     <!-- A Propos -->
     <string name="about_site_url">http://github.com/ragusa87/android-Chibre#readme</string>
-    <string name="about_site">Website</string>
+    <string name="about_site">Site Web</string>
     <string name="about_licence">Licence</string>
-    <string name="about_back">Back</string>
+    <string name="about_back">Retour</string>
     
 </resources>

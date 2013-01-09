@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -32,8 +33,8 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	// Nombre de points en cas de match
 	private final int BONUS = 100;
 	private final int MATCH_VALUE = 157;
-	private final int MATCH_TOUTATOUT_VALUE = 259;
-	
+	private final int MATCH_TOUTATOUT_VALUE = 253;
+
 	// Elements de controles
 	private RatingBar ratingBar;
 	EditText input_score1;
@@ -46,8 +47,11 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 
 	/**
 	 * Ajoute une annonce a une equipe
-	 * @param team L'equipe (1/2)
-	 * @param announce Le nombre de points de l'annonce
+	 * 
+	 * @param team
+	 *            L'equipe (1/2)
+	 * @param announce
+	 *            Le nombre de points de l'annonce
 	 */
 	private void addAnnounce(final int team, final int announce) {
 		final int i = (team == 1 ? 0 : 1);
@@ -61,10 +65,15 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 
 	/**
 	 * Ajoute des points aux equipes
-	 * @param team L'ID de l'equipe
-	 * @param point Points de l'equipe
-	 * @param max Nombre de points maximum de la partie (sans le bonus de match)
-	 * @param coeff Coefficient de la partie (P.ex 2 pour pique double)
+	 * 
+	 * @param team
+	 *            L'ID de l'equipe
+	 * @param point
+	 *            Points de l'equipe
+	 * @param max
+	 *            Nombre de points maximum de la partie (sans le bonus de match)
+	 * @param coeff
+	 *            Coefficient de la partie (P.ex 2 pour pique double)
 	 */
 	private void addPoints(final int team, int point, int max, final int coeff) {
 		// Multiplie les points suivant le coeficient
@@ -79,7 +88,7 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 		// Si le score est de 0, l'autre equipe a un match
 		if (point == 0)
 			reste = max + BONUS * coeff;
-		
+
 		// Calcule du score
 		if (team == 1) {
 			score[0] += point;
@@ -112,11 +121,14 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	 *            Le score
 	 */
 	private void displayScore(int team, int score) {
-		String displayScore = getString(R.string.score);
-		TextView txt1 = (TextView) findViewById(R.id.txt_score1);
-		TextView txt2 = (TextView) findViewById(R.id.txt_score2);
-		displayScore = displayScore.replace("0", score + "");
-		(team != 1 ? txt2 : txt1).setText(displayScore);
+		final int id_string = (team == 1 ? R.string.team_1 : R.string.team_2);
+		final int id_label = (team == 1 ? R.id.team1 : R.id.team2);
+		final Resources r = getResources();
+
+		TextView txt = (TextView) findViewById(id_label);
+		String displayScore = getString(id_string) + " ";
+		displayScore += r.getQuantityString(R.plurals.points, score,score);
+		txt.setText(displayScore);
 	}
 
 	/**
@@ -247,7 +259,7 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 			// Affiche la boite de dialgue "A propos"
 			About.showAbout(this);
 			return true;
-			
+
 		default:
 			return false;
 		}
@@ -300,10 +312,10 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 			max = MATCH_TOUTATOUT_VALUE;
 
 		// Les points sont trop eleves (accepte le bonus de match)
-		if (v.getId() == R.id.btn_score &&  point > max && point != max + BONUS) {
+		if (v.getId() == R.id.btn_score && point > max && point != max + BONUS) {
+
 			Toast.makeText(getApplicationContext(),
-					getString(R.string.error_high_value), Toast.LENGTH_LONG)
-					.show();
+			getString(R.string.error_high_value), Toast.LENGTH_LONG) .show();
 			return;
 		}
 
@@ -330,7 +342,8 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	/**
 	 * Cree le menu contextuel
 	 * 
-	 * @param le menu
+	 * @param le
+	 *            menu
 	 * @return true;
 	 * @Override
 	 */

@@ -122,7 +122,7 @@ class About {
 		final String WEB = activity.getString(R.string.about_site);
 		final String WEB_URL = activity.getString(R.string.about_site_url);
 		final String LICENCE = activity.getString(R.string.about_licence);
-		//final String BACK = activity.getString(R.string.about_back);
+		final String BACK = activity.getString(R.string.about_back);
 
 		String file = "about.html";
 		if (!about) {
@@ -194,15 +194,17 @@ class About {
 					showLicence(activity);
 				}
 			});
-		}
+		} else {
 
-		/* back
-		builder.setNeutralButton(BACK, new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-		});*/
+			/* back */
+			builder.setNeutralButton(BACK, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+
+		}
 
 		// Affiche la boite de dialgue cree
 		builder.create().show();

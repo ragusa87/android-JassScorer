@@ -26,7 +26,7 @@
     <string name="team_2">Team 2 :</string>
     
     <plurals name="points">
-        <item quantity="zero">%d point</item>
+        <item quantity="zero">%d points</item>
         <item quantity="one">%d point</item>
         <item quantity="other">%d points</item>
     </plurals> 

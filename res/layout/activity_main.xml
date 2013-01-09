@@ -2,128 +2,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:gravity="center_horizontal"
     tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/multiplyLegend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/type_1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RatingBar
         android:id="@+id/multiply"
         style="@style/ratingBar"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_alignParentTop="true"
+        android:layout_height="43dp"
+        android:layout_below="@+id/multiplyLegend"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
         android:indeterminate="false"
         android:isIndicator="false"
         android:numStars="@integer/numer_stars"
         android:stepSize="1" />
 
     <TextView
-        android:id="@+id/multiplyLegend"
+        android:id="@+id/team1"
+        style="@style/Team1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/multiply"
-        android:layout_alignParentTop="true"
-        android:text="@string/type_1"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignLeft="@+id/multiply"
-        android:layout_alignRight="@+id/multiply"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/multiply"
-        android:orientation="vertical" >
+        android:layout_marginTop="14dp"
+        android:text="@string/team_1"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/team1"
-            style="@style/Team1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.98"
-            android:text="@string/team_1"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <EditText
+        android:id="@+id/input_score2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/team2"
+        android:ems="10"
+        android:hint="@string/score_input_2"
+        android:imeOptions="actionDone"
+        android:inputType="numberSigned"
+        android:singleLine="true" >
 
-        <TextView
-            android:id="@+id/txt_score1"
-             style="@style/Team1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.97"
-            android:text="@string/score"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <requestFocus />
+    </EditText>
 
-        <EditText
-            android:id="@+id/input_score1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.98"
-            android:ems="10"
-            android:hint="@string/score_input_1"
-            android:inputType="numberSigned"
-            android:singleLine="true"
-            android:imeOptions="actionDone"  />
+    <TextView
+        android:id="@+id/team2"
+        style="@style/Team2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/input_score1"
+        android:layout_marginTop="48dp"
+        android:text="@string/team_2"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/team2"
-            style="@style/Team2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.99"
-            android:text="@string/team_2"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <Button
+        android:id="@+id/btn_announcement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="@string/announcement_btn" />
 
-        <TextView
-            android:id="@+id/txt_score2"
-             style="@style/Team2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.99"
-            android:text="@string/score"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+    <Button
+        android:id="@+id/btn_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_announcement"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="@string/score_btn"
+        android:textAllCaps="true" />
 
-        <EditText
-            android:id="@+id/input_score2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.01"
-            android:ems="10"
-            android:hint="@string/score_input_2"
-            android:inputType="numberSigned"
-            android:singleLine="true"
-            android:imeOptions="actionDone"  />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:baselineAligned="false"
-            android:gravity="center"
-            android:measureWithLargestChild="false"
-            android:orientation="vertical"
-            android:textAlignment="center" >
-
-            <Button
-                android:id="@+id/btn_score"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="center"
-                android:text="@string/score_btn"
-                android:onClick="onClick"
-             
-                android:textAllCaps="true" />
-            <Button
-                android:id="@+id/btn_announcement"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="center"
-                android:onClick="onClick"
-                android:text="@string/announcement_btn" />
-        </LinearLayout>
-
-    </LinearLayout>
+    <EditText
+        android:id="@+id/input_score1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/team1"
+        android:ems="10"
+        android:hint="@string/score_input_1"
+        android:imeOptions="actionDone"
+        android:inputType="numberSigned"
+        android:singleLine="true" />
 
 </RelativeLayout>

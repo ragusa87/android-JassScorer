@@ -38,10 +38,10 @@ import android.widget.TextView;
 /**
  * Boite de dialogue "A Propos" et "Licence"
  * 
- * @author Laurent Constantin 
+ * @author Laurent Constantin
  * 
- * Source: https://github.com/FunkyAndroid/markers-for-android-updated/ 
- * License : Apache 2
+ *         Source: https://github.com/FunkyAndroid/markers-for-android-updated/
+ *         License : Apache 2
  */
 class About {
 	static char buf[] = new char[1024];
@@ -122,6 +122,7 @@ class About {
 		final String WEB = activity.getString(R.string.about_site);
 		final String WEB_URL = activity.getString(R.string.about_site_url);
 		final String LICENCE = activity.getString(R.string.about_licence);
+		//final String BACK = activity.getString(R.string.about_back);
 
 		String file = "about.html";
 		if (!about) {
@@ -176,7 +177,7 @@ class About {
 		// Ajoute des boutons pour "A Propos"
 		if (about) {
 			// Ouvre la page web
-			builder.setNeutralButton(WEB, new OnClickListener() {
+			builder.setPositiveButton(WEB, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
@@ -194,6 +195,15 @@ class About {
 				}
 			});
 		}
+
+		/* back
+		builder.setNeutralButton(BACK, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});*/
+
 		// Affiche la boite de dialgue cree
 		builder.create().show();
 	}

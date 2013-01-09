@@ -17,3 +17,5 @@ bin/classes/*
 proguard-project.txt
 project.properties
 bin/classes/*
+
+download/ignore

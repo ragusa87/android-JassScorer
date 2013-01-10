@@ -17,7 +17,7 @@ Chaque variante de jeu a un coefficient qui lui est propre.
 - Les coéfficient sont respectivement de : 1,2,3,4,5,2.
 - Le score et les annonces sont à saisir avec un coefficient de 1, le reste est calculé automatiquement.
 - Une partie vaut 157 points, et 259 points en tout-atout.
-- En cas de match, vous devez saisir 100 points de plus (257 points ou 362 points).
+- En cas de match, vous devez saisir 100 points de plus (257 points ou 359 points).
 Il est aussi possible de saisir 0 pour l'équipe perdante afin de valider un match.
 	
 
@@ -32,7 +32,7 @@ Il est aussi possible de saisir 0 pour l'équipe perdante afin de valider un mat
 3. Cliquer sur "Annonce" pour ajouter le score a l'equipe choisie.
 
 # Correction
-Pour corriger un score, entrer un score negatif dans une équipe et cliquer sur un des deux bouttons.
+Pour corriger un score, entrer un score negatif dans une équipe et cliquer sur le bouton "Annonce".
 
 # Remise à zéro
 Le score peut être remis à zéro par l'intérmédiaire du menu.

@@ -29,10 +29,10 @@ Il est aussi possible de saisir 0 pour l'équipe perdante afin de valider un mat
 # Saisie d'une annonce
 1. Choisir le champ de saisie de l'équipe 1 ou de l'équipe 2
 2. Entrer le score de l'équipe
-3. Cliquer sur "Annonce" pour ajouter le score a l'equipe choisie.
+3. Cliquer sur "Annonce" pour ajouter le score a l'équipe choisie.
 
 # Correction
-Pour corriger un score, entrer un score negatif dans une équipe et cliquer sur le bouton "Annonce".
+Pour corriger un score, entrer un score négatif dans une équipe et cliquer sur le bouton "Annonce".
 
 # Remise à zéro
 Le score peut être remis à zéro par l'intérmédiaire du menu.
@@ -45,3 +45,15 @@ Le logo, contient des éléments tirés de [Wikipedia](http://en.wikipedia.org/w
 La boîte de dialogue "A propos" est tirée du dépot [markers-for-android-updated](https://github.com/FunkyAndroid/markers-for-android-updated/tree/master/res/drawable-xhdpi) et est sous licence "Apache 2"
 
 	Pour me contacter: constantin(dot)laurent[4t]gmail.com
+
+# Traduction
+Le programme est disponible dans les langues suivantes:
+
+* Français
+* Anglais
+
+Si vous souhaitez d'autres traductions, envoyez-moi un email avec le fichier [strings.xml](https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings.xml) traduit.
+	
+	
+# Voir aussi
+Application [aJass](https://play.google.com/store/apps/details?id=com.ajass) (gratuite)

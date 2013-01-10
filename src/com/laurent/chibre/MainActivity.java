@@ -97,6 +97,10 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 			score[0] += reste;
 			score[1] += point;
 		}
+		// Remise a zero en cas d'overflow
+		if (score[0] < 0 || score[1] < 0)
+			score[0] = score[1] = 0;
+
 		// Affiche le score
 		displayScore(1, score[0]);
 		displayScore(2, score[1]);
@@ -127,7 +131,7 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 
 		TextView txt = (TextView) findViewById(id_label);
 		String displayScore = getString(id_string) + " ";
-		displayScore += r.getQuantityString(R.plurals.points, score,score);
+		displayScore += r.getQuantityString(R.plurals.points, score, score);
 		txt.setText(displayScore);
 	}
 
@@ -136,11 +140,12 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	 */
 	public void checkInput() {
 		// Si les inputs 1 et 2 sont vides
-		boolean isEmpty1 = input_score1.getText().toString().equals("");
-		boolean isEmpty2 = input_score2.getText().toString().equals("");
+		final boolean isEmpty1 = input_score1.getText().toString().equals("");
+		final boolean isEmpty2 = input_score2.getText().toString().equals("");
 		// Recupere les boutons
-		Button btn_score = (Button) findViewById(R.id.btn_score);
-		Button btn_announcement = (Button) findViewById(R.id.btn_announcement);
+		final Button btn_score = (Button) findViewById(R.id.btn_score);
+		final Button btn_announcement = (Button) findViewById(R.id.btn_announcement);
+
 		// Active les boutons
 		btn_score.setEnabled(true);
 		btn_announcement.setEnabled(true);
@@ -296,10 +301,18 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 
 		// Recuperer les points de l'equipe
 		int point = 0;
-		if (team1) {
-			point = Integer.parseInt(input_score1.getText().toString());
-		} else {
-			point = Integer.parseInt(input_score2.getText().toString());
+		try {
+			if (team1) {
+				point = Integer.parseInt(input_score1.getText().toString());
+			} else {
+				point = Integer.parseInt(input_score2.getText().toString());
+			}
+		} catch (NumberFormatException e) {
+			Toast.makeText(getApplicationContext(),
+					getString(R.string.error_format), Toast.LENGTH_LONG).show();
+			input_score1.setText("");
+			input_score2.setText("");
+			return;
 		}
 
 		/* calculs les points de l'equipe */
@@ -315,7 +328,8 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 		if (v.getId() == R.id.btn_score && point > max && point != max + BONUS) {
 
 			Toast.makeText(getApplicationContext(),
-			getString(R.string.error_high_value), Toast.LENGTH_LONG) .show();
+					getString(R.string.error_high_value), Toast.LENGTH_LONG)
+					.show();
 			return;
 		}
 
@@ -367,8 +381,9 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	 */
 	public void onRatingChanged(RatingBar ratingBar, float rating,
 			boolean fromUser) {
-		TextView txt_legend = (TextView) findViewById(R.id.multiplyLegend);
-		String[] legends = getResources().getStringArray(R.array.type_array);
+		final TextView txt_legend = (TextView) findViewById(R.id.multiplyLegend);
+		final String[] legends = getResources().getStringArray(
+				R.array.type_array);
 		// Index du coefficient suivant le rating
 		int i = (int) rating - 1;
 		// Force un rating a une etoile minimum

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.laurent.chibre"
     android:versionCode="1"
-    android:versionName="beta 1" >
+    android:versionName="beta 2" >
 
     <uses-sdk
         android:minSdkVersion="8"

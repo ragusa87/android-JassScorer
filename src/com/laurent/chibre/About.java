@@ -122,12 +122,9 @@ class About {
 		final String WEB = activity.getString(R.string.about_site);
 		final String WEB_URL = activity.getString(R.string.about_site_url);
 		final String LICENCE = activity.getString(R.string.about_licence);
-		final String BACK = activity.getString(R.string.about_back);
-
-		String file = "about.html";
-		if (!about) {
-			file = "licenses.html";
-		}
+		final String OK = activity.getString(android.R.string.ok);
+		final String ABOUT = activity.getString(R.string.menu_about);
+		final String FILE = "licenses.html";
 
 		// Cree une AlertBox
 		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -153,7 +150,7 @@ class About {
 
 		// Choix des elements a afficher suivant la fonctionnalite choisie
 		if (about) {
-
+			builder.setTitle(ABOUT);
 			webview.setVisibility(View.GONE);
 			title.setVisibility(View.VISIBLE);
 			logo.setVisibility(View.VISIBLE);
@@ -161,7 +158,7 @@ class About {
 			title.setText(activity.getString(R.string.app_name) + " "
 					+ getVersionString(activity));
 		} else {
-
+			builder.setTitle(LICENCE);
 			logo.setVisibility(View.GONE);
 			author.setVisibility(View.GONE);
 
@@ -169,7 +166,7 @@ class About {
 			title.setVisibility(View.GONE);
 			webview.setEnabled(true);
 			webview.loadDataWithBaseURL("file:///android_asset/",
-					loadFileText(activity, file), "text/html", "utf-8", null);
+					loadFileText(activity, FILE), "text/html", "utf-8", null);
 		}
 		// Definit la vue
 		builder.setView(layout);
@@ -197,7 +194,7 @@ class About {
 		} else {
 
 			/* back */
-			builder.setNeutralButton(BACK, new OnClickListener() {
+			builder.setNeutralButton(OK, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();

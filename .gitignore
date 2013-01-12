@@ -16,6 +16,10 @@ bin/classes/*
 # android
 proguard-project.txt
 project.properties
+ant.properties
 bin/classes/*
 
 download/ignore
+local.properties
+run.sh
+build.xml

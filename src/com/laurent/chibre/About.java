@@ -38,10 +38,9 @@ import android.widget.TextView;
 /**
  * Boite de dialogue "A Propos" et "Licence"
  * 
- * @author Laurent Constantin
- * 
- *         Source: https://github.com/FunkyAndroid/markers-for-android-updated/
- *         License : Apache 2
+ * @author Laurent Constantin Source:
+ * https://github.com/FunkyAndroid/markers-for-android-updated/ License : Apache
+ * 2
  */
 class About {
 	static char buf[] = new char[1024];
@@ -49,10 +48,8 @@ class About {
 	/**
 	 * Charge un fichier
 	 * 
-	 * @param context
-	 *            Context
-	 * @param filename
-	 *            Nom du fichier
+	 * @param context Context
+	 * @param filename Nom du fichier
 	 * @return Contenu du fichier
 	 */
 	private static String loadFileText(Context context, String filename) {
@@ -73,11 +70,10 @@ class About {
 	/**
 	 * Renvoie la version de l'application
 	 * 
-	 * @param activity
-	 *            Activite
+	 * @param activity Activite
 	 * @return Version de l'application
 	 */
-	private static String getVersionString(final Activity activity) {
+	public static String getVersionString(final Activity activity) {
 		String version = "";
 		try {
 			PackageInfo pi = activity.getPackageManager().getPackageInfo(
@@ -90,6 +86,10 @@ class About {
 		}
 		return version;
 	}
+
+	/**
+	 * Open webiste
+	 */
 
 	/**
 	 * Affiche la boite de dialogue "A Propos"
@@ -112,15 +112,12 @@ class About {
 	/**
 	 * Affiche "A propos" ou "Licence"
 	 * 
-	 * @param activity
-	 *            L'activite
-	 * @param about
-	 *            vrai pour "A propos", faux pour "Licence"
+	 * @param activity L'activite
+	 * @param about vrai pour "A propos", faux pour "Licence"
 	 */
 	private static void show(final Activity activity, boolean about) {
 
 		final String WEB = activity.getString(R.string.about_site);
-		final String WEB_URL = activity.getString(R.string.about_site_url);
 		final String LICENCE = activity.getString(R.string.about_licence);
 		final String OK = activity.getString(android.R.string.ok);
 		final String ABOUT = activity.getString(R.string.menu_about);
@@ -178,10 +175,9 @@ class About {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
-					Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri
-							.parse(WEB_URL));
-					activity.startActivity(urlIntent);
+					About.openWebsite(activity);
 				}
+
 			});
 			// Ouvre la licence
 			builder.setNegativeButton(LICENCE, new OnClickListener() {
@@ -205,5 +201,16 @@ class About {
 
 		// Affiche la boite de dialgue cree
 		builder.create().show();
+	}
+
+	/**
+	 * Open the webiste
+	 * @param activity 
+	 */
+	public static void openWebsite(Activity activity) {
+		final String WEB_URL = activity.getString(R.string.about_site_url);
+
+		Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(WEB_URL));
+		activity.startActivity(urlIntent);
 	}
 }

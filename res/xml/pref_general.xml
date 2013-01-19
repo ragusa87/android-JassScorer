@@ -1,0 +1,35 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Team name category -->
+    <PreferenceCategory android:title="@string/settings_team_category" >
+        <EditTextPreference
+            android:defaultValue="@string/team_1"
+            android:key="pref_team_name1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:summary="@string/pref_team_name1_sample"
+            android:title="@string/pref_team_name1_title" />
+        <EditTextPreference
+            android:defaultValue="@string/team_2"
+            android:key="pref_team_name2"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:summary="@string/pref_team_name2_sample"
+            android:title="@string/pref_team_name2_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_about_category" >
+        <Preference
+            android:key="about"
+            android:summary="@string/settings_about_summary"
+            android:title="@string/settings_about_value" />
+        <Preference
+            android:key="opensource"
+            android:summary="@string/settings_licence_summary"
+            android:title="@string/settings_licence_value" />
+        <Preference
+            android:key="website"
+            android:summary="@string/about_site_url"
+            android:title="@string/about_site" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

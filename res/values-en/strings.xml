@@ -22,8 +22,8 @@
     </string-array>
 
     <!-- Equipes -->
-    <string name="team_1">Team 1 :</string>
-    <string name="team_2">Team 2 :</string>
+    <string name="team_1">Team 1</string>
+    <string name="team_2">Team 2</string>
     
     <plurals name="points">
         <item quantity="zero">%d points</item>
@@ -41,7 +41,8 @@
     <!-- menu -->
     <string name="menu_reset">Reset</string>
     <string name="menu_about">About</string>
-
+    <string name="menu_cancel">Cancel</string>
+    
     <!-- messages d'erreur et de confirmations -->
     <string name="error_empty">Fields are empty</string>
     <string name="error_full">Only one field should be filled</string>

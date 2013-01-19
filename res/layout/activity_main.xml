@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/type_1"
         android:gravity="center"
+        android:text="@string/type_1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RatingBar
@@ -46,7 +46,7 @@
         android:ems="10"
         android:hint="@string/score_input_2"
         android:imeOptions="actionDone"
-        android:inputType="numberSigned"
+        android:inputType="number"
         android:singleLine="true" >
 
         <requestFocus />
@@ -93,7 +93,7 @@
         android:ems="10"
         android:hint="@string/score_input_1"
         android:imeOptions="actionDone"
-        android:inputType="numberSigned"
+        android:inputType="number"
         android:singleLine="true" />
 
 </RelativeLayout>

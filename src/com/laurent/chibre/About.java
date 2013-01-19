@@ -36,11 +36,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Boite de dialogue "A Propos" et "Licence"
- * 
- * @author Laurent Constantin Source:
- * https://github.com/FunkyAndroid/markers-for-android-updated/ License : Apache
- * 2
+ * Boite de dialogue "A Propos" et "License"
+ * @author Laurent Constantin 
  */
 class About {
 	static char buf[] = new char[1024];
@@ -86,11 +83,6 @@ class About {
 		}
 		return version;
 	}
-
-	/**
-	 * Open webiste
-	 */
-
 	/**
 	 * Affiche la boite de dialogue "A Propos"
 	 * 
@@ -204,7 +196,7 @@ class About {
 	}
 
 	/**
-	 * Open the webiste
+	 * Open the website
 	 * @param activity 
 	 */
 	public static void openWebsite(Activity activity) {

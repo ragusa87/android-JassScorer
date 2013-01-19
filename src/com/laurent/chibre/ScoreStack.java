@@ -1,3 +1,11 @@
+/* LICENSE
+ * This work is licensed under the 
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. 
+ * To view a copy of this license, visit 
+ * http://creativecommons.org/licenses/by-nc-sa/3.0/.
+ * 
+ * Copyright (c) 2013 by Laurent Constantin <constantin.laurent@gmail.com>
+ */
 package com.laurent.chibre;
 
 import java.util.Stack;
@@ -5,8 +13,6 @@ import java.util.Stack;
 /**
  * Gestion des score pour les deux equipes dans une pile. Ainsi il est possible
  * d'annuler un score
- * 
- * @author Constantin Laurent
  */
 public class ScoreStack {
 	/**

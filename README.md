@@ -23,19 +23,24 @@ Il est aussi possible de saisir 0 pour l'équipe perdante afin de valider un mat
 
 # Saisie du score
 1. Choisir le champ de saisie de l'équipe 1 ou de l'équipe 2
-2. Entrer le score de l'équipe
+2. Entrer le score de l'équipe (en x1)
 3. Cliquer sur "CALCULER LE SCORE", les scores des deux équipes sont calculés et ajoutés
+
+Si un message vous indique que le score est trop grand, c'est qu'il se situe entre
+157 et 257 points (non compris) ou entre 259 et 359 points en tout atout.
 
 # Saisie d'une annonce
 1. Choisir le champ de saisie de l'équipe 1 ou de l'équipe 2
-2. Entrer le score de l'équipe
+2. Entrer la valeur de l'annonce (x1)
 3. Cliquer sur "Annonce" pour ajouter le score a l'équipe choisie.
 
+Aucune validation sur la valeur de l'annonce n'est faite.
+
 # Correction
-Pour corriger un score, entrer un score négatif dans une équipe et cliquer sur le bouton "Annonce".
+Pour corriger un score, utiliser la fonction "Annuler" du menu.
 
 # Remise à zéro
-Le score peut être remis à zéro par l'intérmédiaire du menu.
+Le score peut être remis à zéro par l'intermédiaire du menu.
 
 # Licence
 Ce programme est sous licence [Attribution-NonCommercial-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-nc-sa/3.0/)
@@ -52,7 +57,7 @@ Le programme est disponible dans les langues suivantes:
 * Français
 * Anglais
 
-Si vous souhaitez d'autres traductions, envoyez-moi un email avec le fichier [strings.xml](https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings.xml) traduit.
+Si vous souhaitez d'autres traductions, envoyez-moi un email avec les fichiers [strings.xml](https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings.xml) et [strings_activity_settings.xml](https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings_activity_settings.xml) traduits.
 	
 	
 # Voir aussi

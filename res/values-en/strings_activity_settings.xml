@@ -10,11 +10,4 @@
     <string name="pref_team_name1_sample">Alice &amp; Bob</string>
     <string name="pref_team_name2_sample">Charlie &amp; Dave</string>
 
-    <!-- about -->
-    <string name="settings_about_category">@string/menu_about</string>
-    <string name="settings_about_value">@string/app_name</string>
-    <string name="settings_about_summary">@string/app_author</string>
-    <string name="settings_licence_value">@string/about_licence</string>
-    <string name="settings_licence_summary"></string>
-
 </resources>

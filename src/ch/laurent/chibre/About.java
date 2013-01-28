@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.laurent.chibre;
+package ch.laurent.chibre;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,10 +34,12 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import ch.laurent.chibre.R;
 
 /**
  * Boite de dialogue "A Propos" et "License"
- * @author Laurent Constantin 
+ * 
+ * @author Laurent Constantin
  */
 class About {
 	static char buf[] = new char[1024];
@@ -83,6 +85,7 @@ class About {
 		}
 		return version;
 	}
+
 	/**
 	 * Affiche la boite de dialogue "A Propos"
 	 * 
@@ -139,6 +142,7 @@ class About {
 
 		// Choix des elements a afficher suivant la fonctionnalite choisie
 		if (about) {
+			// A propos
 			builder.setTitle(ABOUT);
 			webview.setVisibility(View.GONE);
 			title.setVisibility(View.VISIBLE);
@@ -147,6 +151,7 @@ class About {
 			title.setText(activity.getString(R.string.app_name) + " "
 					+ getVersionString(activity));
 		} else {
+			// Licence
 			builder.setTitle(LICENCE);
 			logo.setVisibility(View.GONE);
 			author.setVisibility(View.GONE);
@@ -197,7 +202,8 @@ class About {
 
 	/**
 	 * Open the website
-	 * @param activity 
+	 * 
+	 * @param activity
 	 */
 	public static void openWebsite(Activity activity) {
 		final String WEB_URL = activity.getString(R.string.about_site_url);

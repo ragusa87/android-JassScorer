@@ -23,3 +23,5 @@ download/ignore
 local.properties
 run.sh
 build.xml
+javadoc.xml
+doc/

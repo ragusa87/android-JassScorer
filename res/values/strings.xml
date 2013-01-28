@@ -24,19 +24,20 @@
     <!-- Equipes -->
     <string name="team_1">Team 1</string>
     <string name="team_2">Team 2</string>
-    
+
     <plurals name="points">
         <item quantity="zero">%d point</item>
         <item quantity="one">%d point</item>
         <item quantity="other">%d points</item>
-    </plurals> 
-    
+    </plurals>
+
     <string name="score_input_1">Input for team 1</string>
     <string name="score_input_2">Input for team 2</string>
 
     <!-- boutons -->
     <string name="announcement_btn">announcement</string>
     <string name="score_btn">Score</string>
+    <string name="score_graph_legend">Score</string>
 
     <!-- menu -->
     <string name="menu_reset">Reset</string>
@@ -48,10 +49,12 @@
     <string name="error_full">Only one field should be filled</string>
     <string name="error_high_value">Score is too high</string>
     <string name="error_format">Invalid number</string>
+    <string name="score_reset_confirm_title">@string/menu_reset</string>
     <string name="score_reset_confirm">Do you really want to reset?</string>
-    
+
     <!-- A Propos -->
     <string name="about_site_url">http://github.com/ragusa87/android-Chibre#readme</string>
     <string name="about_site">Website</string>
-    <string name="about_licence">Licence</string>    
+    <string name="about_licence">Licence</string>
+
 </resources>

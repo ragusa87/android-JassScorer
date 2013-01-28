@@ -12,15 +12,6 @@
     <string name="type_5">Slalom</string>
     <string name="type_6">All asset</string>
 
-    <string-array name="type_array">
-        <item>@string/type_1</item>
-        <item>@string/type_2</item>
-        <item>@string/type_3</item>
-        <item>@string/type_4</item>
-        <item>@string/type_5</item>
-        <item>@string/type_6</item>
-    </string-array>
-
     <!-- Equipes -->
     <string name="team_1">Team 1</string>
     <string name="team_2">Team 2</string>
@@ -37,7 +28,8 @@
     <!-- boutons -->
     <string name="announcement_btn">announcement</string>
     <string name="score_btn">Score</string>
-
+    <string name="score_graph_legend">Score</string>
+    
     <!-- menu -->
     <string name="menu_reset">Reset</string>
     <string name="menu_about">About</string>
@@ -51,7 +43,6 @@
     <string name="score_reset_confirm">Do you really want to reset?</string>
 
     <!-- A Propos -->
-    <string name="about_site_url">http://github.com/ragusa87/android-Chibre#readme</string>
     <string name="about_site">Website</string>
     <string name="about_licence">Licence</string>
     

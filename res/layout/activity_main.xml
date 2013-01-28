@@ -33,56 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/multiply"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="8dp"
         android:text="@string/team_1"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/input_score2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/team2"
-        android:ems="10"
-        android:hint="@string/score_input_2"
-        android:imeOptions="actionDone"
-        android:inputType="number"
-        android:singleLine="true" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/team2"
-        style="@style/Team2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/input_score1"
-        android:layout_marginTop="48dp"
-        android:text="@string/team_2"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/btn_announcement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/announcement_btn" />
-
-    <Button
-        android:id="@+id/btn_score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_announcement"
-        android:layout_alignParentLeft="true"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/score_btn"
-        android:textAllCaps="true" />
 
     <EditText
         android:id="@+id/input_score1"
@@ -95,5 +48,60 @@
         android:imeOptions="actionDone"
         android:inputType="number"
         android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/team2"
+        style="@style/Team2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/input_score1"
+        android:layout_marginTop="8dp"
+        android:text="@string/team_2"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/input_score2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/team2"
+        android:ems="10"
+        android:hint="@string/score_input_2"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:singleLine="true" />
+
+    <LinearLayout
+        android:id="@+id/layoutGraph"
+        android:layout_width="wrap_content"
+        android:layout_height="120dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/input_score2"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_announcement"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/layoutGraph"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="@string/score_btn" />
+
+    <Button
+        android:id="@+id/btn_announcement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="@string/announcement_btn" />
 
 </RelativeLayout>

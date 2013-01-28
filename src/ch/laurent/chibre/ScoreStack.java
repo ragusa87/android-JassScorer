@@ -6,17 +6,18 @@
  * 
  * Copyright (c) 2013 by Laurent Constantin <constantin.laurent@gmail.com>
  */
-package com.laurent.chibre;
-
+package ch.laurent.chibre;
+import java.util.Observable;
 import java.util.Stack;
 
 /**
  * Gestion des score pour les deux equipes dans une pile. Ainsi il est possible
- * d'annuler un score
+ * d'annuler un score.
  */
-public class ScoreStack {
+public class ScoreStack extends Observable {
 	/**
-	 * Classe interne pour stoquer le score
+	 * Classe interne pour stoquer le score le score est dans 2 champs
+	 * publiques.
 	 */
 	static class Score {
 		/**
@@ -59,13 +60,18 @@ public class ScoreStack {
 	 * Ajoute le score dans la pile. Si le score est negatif, on le met a zero
 	 */
 	private Score push(final Score s) {
+		// Pas de score negatif
 		if (s.score1 < 0)
 			s.score1 = 0;
 
 		if (s.score2 < 0)
 			s.score2 = 0;
 
-		return stack.push(s);
+		Score s2 = stack.push(s);
+		// notifie, (pour mettre a jour le graph)
+		setChanged();
+		notifyObservers();
+		return s2;
 	}
 
 	/**
@@ -95,6 +101,8 @@ public class ScoreStack {
 		stack.clear();
 		Score s = new Score(score1, score2);
 		this.push(s);
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -107,6 +115,8 @@ public class ScoreStack {
 		Score s = (stack.isEmpty() ? new Score(0, 0) : stack.peek());
 		s = new Score(s.score1 + score1, s.score2 + score2);
 		this.push(s);
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -148,6 +158,8 @@ public class ScoreStack {
 		if (stack.empty()) {
 			set(0, 0);
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -177,6 +189,15 @@ public class ScoreStack {
 			}
 		}
 		return s.toString();
+	}
+
+	/**
+	 * Renvoie la pile pour iterer sur le score
+	 * 
+	 * @return la pile des scores
+	 */
+	public Stack<ScoreStack.Score> getStack() {
+		return stack;
 	}
 
 	/**

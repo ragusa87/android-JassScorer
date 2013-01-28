@@ -114,10 +114,7 @@ public abstract class ScoreGraph implements Observer {
 				i++;
 			}
 			// Cree les legendes verticales [0....MAX]
-			/*String[] verticalString = (String[]) gfdString.clone();
-			verticalString[0] = topScore + "";
-			verticalString[verticalString.length - 1] = "0";*/
-			String[] verticalString = new String[] { topScore + "","","0" };
+			String[] verticalString = new String[] { topScore + "","0" };
 			// Applique les legendess
 			graphView.setVerticalLabels(verticalString);
 			graphView.setHorizontalLabels(gfdString);

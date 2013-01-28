@@ -30,7 +30,7 @@
     <string name="score_graph_legend">Partitur</string>
     
     <!-- menu -->
-    <string name="menu_reset">rücksetzen</string>
+    <string name="menu_reset">Rücksetzen</string>
     <string name="menu_about">Über</string>
     <string name="menu_cancel">Abbrechen</string>
     

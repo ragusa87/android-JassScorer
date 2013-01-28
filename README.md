@@ -9,7 +9,8 @@ Chaque variante de jeu a un coefficient qui lui est propre.
 
 	1. Simple (Carreau ou Coeur)
 	2. Double (Treffle ou Pique)
-	3. De Haut en bas (Pas d'atout, l'as est le plus fort)	4. De bas en haut (Pas d'atout, le 6 est le plus fort)
+	3. De Haut en bas (Pas d'atout, l'as est le plus fort)
+	4. De bas en haut (Pas d'atout, le 6 est le plus fort)
 	5. Slalom (Pas d'atout, l'as et le 6 sont les plus forts, une fois sur 2)
 	6. Tout-atout (Pas d'atout, le buur est le plus fort, suivit du nell)
 	

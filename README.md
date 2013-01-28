@@ -49,6 +49,8 @@ Le logo, contient des éléments tirés de [Wikipedia](http://en.wikipedia.org/w
 
 La boîte de dialogue "A propos" est tirée du dépot [markers-for-android-updated](https://github.com/FunkyAndroid/markers-for-android-updated/tree/master/res/drawable-xhdpi) et est sous licence "Apache 2"
 
+Le graphique est réalisé via la librairie [GraphView 3.0](http://www.jjoe64.com/p/graphview-library.html) par Jonas Gehring sous licence [LGPL](http://www.gnu.org/licenses/lgpl.html).
+
 	Pour me contacter: constantin(dot)laurent[4t]gmail.com
 
 # Traduction
@@ -56,6 +58,7 @@ Le programme est disponible dans les langues suivantes:
 
 * Français
 * Anglais
+* Allemand (Traduit via Google Translate)
 
 Si vous souhaitez d'autres traductions, envoyez-moi un email avec les fichiers [strings.xml](https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings.xml) et [strings_activity_settings.xml](https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings_activity_settings.xml) traduits.
 	

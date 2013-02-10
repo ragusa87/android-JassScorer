@@ -11,8 +11,10 @@ package ch.laurent.chibre;
 
 import java.util.Observable;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -97,12 +99,20 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 		// Initialement, on met a jour le graphique
 		graphUpdate();
 	}
+	
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public void refreshMenu(){
+		if(Build.VERSION.SDK_INT >= 11){
+			invalidateOptionsMenu();
+		}
+	}
 
 	/**
 	 * Mise a jour du graphique
 	 */
 	public void graphUpdate() {
-
+		refreshMenu();
+		
 		LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
 		//layout.invalidate();
 
@@ -171,8 +181,8 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	 */
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		final boolean enable = score.isCancellable();
-		menu.getItem(MENU_CANCEL_POSITION).setEnabled(enable);
-		menu.getItem(MENU_RESET_POSITION).setEnabled(enable);
+		menu.getItem(MENU_CANCEL_POSITION).setEnabled(enable).setVisible(enable);
+		menu.getItem(MENU_RESET_POSITION).setEnabled(enable).setVisible(enable);
 		return true;
 	}
 

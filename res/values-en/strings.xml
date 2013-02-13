@@ -24,7 +24,7 @@
     <string name="score_input_2">Input for team 2</string>
 
     <!-- boutons -->
-    <string name="announcement_btn">announcement</string>
+    <string name="announcement_btn">Announcement</string>
     <string name="score_btn">Score</string>
     
     <!-- menu -->

@@ -6,7 +6,8 @@
  * 
  * Copyright (c) 2013 by Laurent Constantin <constantin.laurent@gmail.com>
  */
-package ch.laurent.chibre;
+package scoreManager;
+
 import java.util.Observable;
 import java.util.Stack;
 
@@ -16,7 +17,7 @@ import java.util.Stack;
  */
 public class ScoreStack extends Observable {
 	/**
-	 * Classe interne pour stoquer le score le score est dans 2 champs
+	 * Classe interne pour stoquer le score. Le score est dans 2 champs
 	 * publiques.
 	 */
 	static class Score {
@@ -88,6 +89,7 @@ public class ScoreStack extends Observable {
 	 * Le score de depart est 0,0
 	 */
 	public ScoreStack() {
+		// notifyObservers() sera appele
 		set(0, 0);
 	}
 
@@ -99,8 +101,7 @@ public class ScoreStack extends Observable {
 	 */
 	public void set(final int score1, final int score2) {
 		stack.clear();
-		Score s = new Score(score1, score2);
-		this.push(s);
+		this.push(new Score(score1, score2));
 		setChanged();
 		notifyObservers();
 	}
@@ -113,8 +114,7 @@ public class ScoreStack extends Observable {
 	 */
 	public void add(final int score1, final int score2) {
 		Score s = (stack.isEmpty() ? new Score(0, 0) : stack.peek());
-		s = new Score(s.score1 + score1, s.score2 + score2);
-		this.push(s);
+		this.push(new Score(s.score1 + score1, s.score2 + score2));
 		setChanged();
 		notifyObservers();
 	}
@@ -128,6 +128,7 @@ public class ScoreStack extends Observable {
 	public void addAnnounce(final int team, final int announce) {
 		int score1 = (team == 1 ? announce : 0);
 		int score2 = (team == 2 ? announce : 0);
+		// notifyObservers() sera appele
 		this.add(score1, score2);
 	}
 
@@ -138,6 +139,7 @@ public class ScoreStack extends Observable {
 	 * @return Score de l'equipe 1 ou 2
 	 */
 	public int getScore(final int team) {
+		// La pile n'est jamais vide
 		return stack.peek().get(team);
 	}
 
@@ -145,6 +147,7 @@ public class ScoreStack extends Observable {
 	 * Remet a zero le score
 	 */
 	public void reset() {
+		// notifyObservers() sera appele
 		set(0, 0);
 	}
 
@@ -152,14 +155,19 @@ public class ScoreStack extends Observable {
 	 * Annule la derniere modification du score
 	 */
 	public void cancel() {
+		// Enleve le dernier score de la pile
 		if (!stack.empty())
 			stack.pop();
 
+		// S'assure que la pile ne soit jamais vide
 		if (stack.empty()) {
+			// notifyObservers() sera appele
 			set(0, 0);
+		} else {
+			// On notifie l'observateur car pas appele
+			setChanged();
+			notifyObservers();
 		}
-		setChanged();
-		notifyObservers();
 	}
 
 	/**
@@ -168,6 +176,7 @@ public class ScoreStack extends Observable {
 	 * @return si on peut annuler la derniere modificiation
 	 */
 	public boolean isCancellable() {
+		// La pile contient toujours une valeur (0,0)
 		return stack.size() > 1;
 	}
 
@@ -178,7 +187,7 @@ public class ScoreStack extends Observable {
 	 */
 	public String saveAsString() {
 		// Stack = Score ; Score ; Score
-		// Score = Points1,Points2
+		// Score = score1,score2
 		StringBuffer s = new StringBuffer();
 		final int size = stack.size();
 		for (int i = 0; i < size; i++) {
@@ -202,23 +211,18 @@ public class ScoreStack extends Observable {
 
 	/**
 	 * Reconstruit la pile depuis un string
-	 * 
 	 * @param s Le string
-	 * @return Le score
 	 */
-	public static ScoreStack restoreFromString(String s) {
-		if (s == null || s.trim().equals(""))
-			return new ScoreStack();
+	public void restoreFromString(String s) {
+		if (s == null || s.trim().equals("")) return;
 		// Stack = Score ; Score ; Score
 		String tmpScores[] = s.split(";");
-		ScoreStack result = new ScoreStack();
-		result.stack.clear();
+		stack.clear();
 		String[] score;
 		for (int i = 0; i < tmpScores.length; i++) {
 			score = tmpScores[i].split(",");
-			// Score = Points1,Points2
-			result.push(Integer.valueOf(score[0]), Integer.valueOf(score[1]));
+			// Score = score1,score2
+			push(Integer.valueOf(score[0]), Integer.valueOf(score[1]));
 		}
-		return result;
 	}
 }

@@ -9,6 +9,7 @@
 
 package ch.laurent.chibre;
 
+import helpers.AboutHelper;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -27,11 +28,12 @@ public class SettingsActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.pref_general);
 
-		// Add version number
+		// Ajoute la version dans le champ a-propos
 		final Preference about = findPreference("about");
-		about.setTitle(about.getTitle() + " " + About.getVersionString(this));
+		about.setTitle(about.getTitle() + " "
+				+ AboutHelper.getVersionString(this));
 
-		// OnClick functions,..
+		// Ecoute du clique
 		showLicences();
 		showAbout();
 		showWebsite();
@@ -45,7 +47,7 @@ public class SettingsActivity extends PreferenceActivity {
 		website.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(final Preference preference) {
-				About.openWebsite(SettingsActivity.this);
+				AboutHelper.openWebsite(SettingsActivity.this);
 				return true;
 			}
 		});
@@ -59,7 +61,7 @@ public class SettingsActivity extends PreferenceActivity {
 		about.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(final Preference preference) {
-				About.showAbout(SettingsActivity.this);
+				AboutHelper.showAbout(SettingsActivity.this);
 				return true;
 			}
 		});
@@ -74,7 +76,7 @@ public class SettingsActivity extends PreferenceActivity {
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 					@Override
 					public boolean onPreferenceClick(final Preference preference) {
-						About.showLicence(SettingsActivity.this);
+						AboutHelper.showLicence(SettingsActivity.this);
 						return true;
 					}
 				});

@@ -9,7 +9,12 @@
 
 package ch.laurent.chibre;
 
+import helpers.TeamNameHelper;
+
 import java.util.Observable;
+
+import scoreManager.ScoreGraph;
+import scoreManager.ScoreStack;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -33,42 +38,37 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import ch.laurent.chibre.R;
 
-// TODO Forcer le choix du rating apres chaque saisie
+// TODO: Forcer le choix du rating apres chaque saisie
 public class MainActivity extends Activity implements OnRatingBarChangeListener {
 	// Valeurs par defaut
-	private final static int INIT_RATING = 1;
-	private final static int TOUT_ATOUT_RATING = 6;
+	private final static int sInitRating = 1;
+	private final static int sAllAssetRating = 6;
 	// Position de l'element XX dans le menu (0..n)
-	private final static int MENU_CANCEL_POSITION = 0;
-	private final static int MENU_RESET_POSITION = MENU_CANCEL_POSITION + 1;
+	private final static int sMenuCancelPosition = 0;
+	private final static int sMenuResetPosition = sMenuCancelPosition + 1;
 
 	// Noms des champs de sauvegarde
-	private final static String SAVE_SCORESTACK = "scoreStack";
-	private final static String SAVE_RATING = "rating";
-
-	// Noms des champs de preferences
-	private final static String PREF_TEAM1_NAME = "pref_team_name1";
-	private final static String PREF_TEAM2_NAME = "pref_team_name2";
+	private final static String sSaveScoreStack = "scoreStack";
+	private final static String sSaveRating = "rating";
 
 	// Nombre de points en cas de match
-	private final static int BONUS = 100;
-	private final static int MATCH_VALUE = 157;
-	private final static int MATCH_TOUTATOUT_VALUE = 253;
+	private final static int sBonus = 100;
+	private final static int sMatch = 157;
+	private final static int sMatchAllAsset = 253;
 
 	// Score des equipes
-	private ScoreStack score = new ScoreStack();
+	private ScoreStack mScore = new ScoreStack();
 
 	// Graph des scores
-	private ScoreGraph graph;
+	private ScoreGraph mGraph;
 	// Coefficient de la partie (P.ex: 2x pour pique double)
-	private int coefficient = 1;
+	private int mCoefficient = 1;
 
 	// Elements de controles
-	private RatingBar ratingBar;
-	EditText input_score1;
-	EditText input_score2;
+	private RatingBar mRatingBar;
+	private EditText mInputScore1;
+	private EditText mInputScore2;
 
 	/**
 	 * Lorsque l'activite est cree.
@@ -78,31 +78,40 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 		setContentView(R.layout.activity_main);
 
 		// Gere la bare de "rating"
-		ratingBar = (RatingBar) findViewById(R.id.multiply);
-		ratingBar.setOnRatingBarChangeListener(this);
-		ratingBar.setRating(INIT_RATING);
+		mRatingBar = (RatingBar) findViewById(R.id.multiply);
+		mRatingBar.setOnRatingBarChangeListener(this);
+		mRatingBar.setRating(sInitRating);
 
 		// Recupere les champs de saisie
-		input_score1 = (EditText) findViewById(R.id.input_score1);
-		input_score2 = (EditText) findViewById(R.id.input_score2);
+		mInputScore1 = (EditText) findViewById(R.id.input_score1);
+		mInputScore2 = (EditText) findViewById(R.id.input_score2);
 
 		// Verification des saisies a la volee
-		input_score1.addTextChangedListener(new TextWatcherAdapter());
-		input_score2.addTextChangedListener(new TextWatcherAdapter());
+		mInputScore1.addTextChangedListener(new TextWatcherAdapter());
+		mInputScore2.addTextChangedListener(new TextWatcherAdapter());
 		textChangedListener();
-		graph = new ScoreGraph(this, score) {
+
+		// Graphique
+		mGraph = new ScoreGraph(this, mScore) {
 			public void update(Observable observable, Object data) {
-				// Lorsque le score change, on met a jour le graphique
+				// Lorsque le score change, on met a jour
+				// le score affiche et le graphique
 				graphUpdate();
+				displayScore();
 			}
 		};
-		// Initialement, on met a jour le graphique
+		// Initialement, on met a jour les infos (graph,score)
 		graphUpdate();
+		displayScore();
 	}
-	
+
+	/**
+	 * Redessine l'actionBar (des android 3.0 Honeycomb) pour prendre en compte
+	 * les modifications du menu
+	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public void refreshMenu(){
-		if(Build.VERSION.SDK_INT >= 11){
+	public void refreshActionBar() {
+		if (Build.VERSION.SDK_INT >= 11) {
 			invalidateOptionsMenu();
 		}
 	}
@@ -111,16 +120,17 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	 * Mise a jour du graphique
 	 */
 	public void graphUpdate() {
-		refreshMenu();
-		
+		// Mise a jour de l'actionBar
+		refreshActionBar();
+
+		// Recupere le layout du graphique
 		LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
-		//layout.invalidate();
 
 		// Supprime le graphe
 		layout.removeAllViews();
-		// Ajoute le graph, si on a un score
-		if (score.isCancellable()) {
-			layout.addView(graph.getView());
+		// Ajoute le graphe, si on a un score a afficher
+		if (mScore.isCancellable()) {
+			layout.addView(mGraph.getView());
 		}
 	}
 
@@ -134,8 +144,8 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 				.getDefaultSharedPreferences(getApplicationContext());
 		SharedPreferences.Editor ed = sharedPrefs.edit();
 		// Valeurs a sauver
-		ed.putString(SAVE_SCORESTACK, score.saveAsString());
-		ed.putFloat(SAVE_RATING, ratingBar.getRating());
+		ed.putString(sSaveScoreStack, mScore.saveAsString());
+		ed.putFloat(sSaveRating, mRatingBar.getRating());
 		// Sauve
 		ed.commit();
 	}
@@ -151,16 +161,13 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 		// Valeur a restaurer
 		// 0,0 est equivalent a new ScoreStack().saveAsString();
 		// il s'agit de la valeur par defaut
-		String temp = sharedPrefs.getString(SAVE_SCORESTACK, "0,0");
+		String temp = sharedPrefs.getString(sSaveScoreStack, "0,0");
 		// La pile est remplacee
-		score = ScoreStack.restoreFromString(temp);
-		// il faut mettre a jour le graph avec la nouvelle pile
-		graph.setStack(score);
-		ratingBar.setRating(sharedPrefs.getFloat(SAVE_RATING, INIT_RATING));
+		mScore.restoreFromString(temp);
+		mRatingBar.setRating(sharedPrefs.getFloat(sSaveRating, sInitRating));
 
 		// Raffraichit la vue
 		graphUpdate();
-		displayScore();
 		textChangedListener();
 	}
 
@@ -180,9 +187,10 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	 * Active ou desactive les options du menu a la volee
 	 */
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		final boolean enable = score.isCancellable();
-		menu.getItem(MENU_CANCEL_POSITION).setEnabled(enable).setVisible(enable);
-		menu.getItem(MENU_RESET_POSITION).setEnabled(enable).setVisible(enable);
+		final boolean enable = mScore.isCancellable();
+		// Les options Annuler et Reset sont active que si l'on a un score.
+		menu.getItem(sMenuCancelPosition).setEnabled(enable).setVisible(enable);
+		menu.getItem(sMenuResetPosition).setEnabled(enable).setVisible(enable);
 		return true;
 	}
 
@@ -217,8 +225,7 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 									dialog.cancel();
 								}
 							});
-			AlertDialog alert = builder.create();
-			alert.show();
+			builder.create().show();
 			return true;
 		case R.id.menu_settings:
 			// Lance les parametres
@@ -226,9 +233,7 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 			return true;
 		case R.id.menu_cancel:
 			// Annule la derniere saisie
-			score.cancel();
-			// Affiche le nouveau score
-			displayScore();
+			mScore.cancel();
 			return true;
 		default:
 			return false;
@@ -258,19 +263,8 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 		}
 		// Le coefficient se definit suivant le nombre d'etoiles.
 		// Voir dans res/values/integers.xml,
-		coefficient = getResources().getIntArray(R.array.coeff)[i];
-		txt_legend.setText(legends[i] + " x" + coefficient);
-	}
-
-	/**
-	 * Ajoute une annonce a une equipe
-	 * 
-	 * @param team L'equipe (1/2)
-	 * @param points Le nombre de points de l'annonce
-	 */
-	private void addAnnounce(final int team, final int points, final int coeff) {
-		score.addAnnounce(team, points * coeff);
-		displayScore();
+		mCoefficient = getResources().getIntArray(R.array.coeff)[i];
+		txt_legend.setText(legends[i] + " x" + mCoefficient);
 	}
 
 	/**
@@ -286,44 +280,31 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 		// Multiplie les points suivant le coeficient
 		max *= coeff;
 		point *= coeff;
-		int sign = 1;
-		// Un score negatif enleve les points aux deux equipes
-		if (point < 0) {
-			sign = -1;
-			point = Math.abs(point);
-		}
 
 		// Le reste est pour l'autre equipe
 		int rest = max - point;
 		// Si le reste est negatif (on a un match)
-		if (rest < 0)
+		if (rest < 0) {
 			rest = 0;
+		}
 		// Si le score est de 0, l'autre equipe a un match
-		if (point == 0)
-			rest = max + BONUS * coeff;
-
-		// On s'assure qu'avec un score negatif, on corrige le score des 2 equipes
-		point *= sign;
-		rest *= sign;
-
+		if (point == 0) {
+			rest = max + sBonus * coeff;
+		}
 		// Si on a saisit le score de l'equipe 1, l'equipe 2 a le reste
 		if (team == 1) {
-			score.add(point, rest);
+			mScore.add(point, rest);
 		} else { // Et vice-versa
-			score.add(rest, point);
+			mScore.add(rest, point);
 		}
-
-		// Affiche le score
-		displayScore();
 	}
 
 	/**
 	 * Efface le score et le type de jeu
 	 */
 	private void reset() {
-		score.reset();
-		displayScore();
-		ratingBar.setRating(INIT_RATING);
+		mRatingBar.setRating(sInitRating);
+		mScore.reset();
 	}
 
 	/**
@@ -337,75 +318,19 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 		// Iterate for team 1 and 2
 		for (int team = 1; team <= 2; team++) {
 			// Score
-			points = score.getScore(team);
+			points = mScore.getScore(team);
 
 			// TextView
 			id_label = (team == 1 ? R.id.team1 : R.id.team2);
 
 			// Set score for current team.
 			TextView txt = (TextView) findViewById(id_label);
-			String displayScore = getTeamName(team) + " : ";
+			String displayScore = TeamNameHelper.getTeamName(
+					getApplicationContext(), team) + " : ";
 			displayScore += r.getQuantityString(R.plurals.points, points,
 					points);
 			txt.setText(displayScore);
 		}
-	}
-
-	/**
-	 * Obtien le nom d'une equipe
-	 * 
-	 * @param teamId Le numero de l'equipe (1 ou 2)
-	 * @return Le nom de l'equipe
-	 */
-
-	public String getTeamName(int teamId) {
-
-		// Preference ID
-		final String pref_teamName_label = (teamId == 1 ? PREF_TEAM1_NAME
-				: PREF_TEAM2_NAME);
-
-		// Default team name
-		final int id_string = (teamId == 1 ? R.string.team_1 : R.string.team_2);
-		final SharedPreferences mPreferences = PreferenceManager
-				.getDefaultSharedPreferences(getApplicationContext());
-
-		// Get the team name form pref, or use default value
-		String teamName = mPreferences.getString(pref_teamName_label,
-				getString(id_string));
-		// Uppercase the first char
-		if (teamName.length() >= 2)
-			teamName = Character.toUpperCase(teamName.charAt(0))
-					+ teamName.substring(1);
-		return teamName;
-	}
-
-	/**
-	 * Verifie les textes saisits..
-	 * 
-	 * @return true si valide, false sinon
-	 */
-	public boolean validInput() {
-		// Verifie les champs
-		String error = "";
-		// Les 2 sont vides
-		if (input_score1.getText().toString().equals("")
-				&& input_score2.getText().toString().equals("")) {
-			error = getString(R.string.error_empty);
-		}
-		// Les 2 sont pleins (plus possible, mais bon...)
-		if (!input_score1.getText().toString().equals("")
-				&& !input_score2.getText().toString().equals("")) {
-			error = getString(R.string.error_full);
-		}
-		// Affiche l'erreur si il y en a
-		if (!error.equals("")) {
-			Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG)
-					.show();
-			return false;
-		}
-		// Les saisies sont valides,..
-		// Attention toutefois a pouvoir caster le string en int
-		return true;
 	}
 
 	/**
@@ -414,16 +339,11 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	 * @param v Le bouton clique
 	 */
 	public void onClick(View v) {
-		// Si les saisies ne sont pas valides, rien a faire
-		if (!validInput()) {
-			return;
-		}
-
 		// Recuperer les points de l'equipe
 		int point = 0;
 		// Choix du champ 1 ou 2.
-		final boolean team1 = !input_score1.getText().toString().equals("");
-		EditText input = (team1 ? input_score1 : input_score2);
+		final int team = (!mInputScore1.getText().toString().equals("") ? 1 : 2);
+		final EditText input = (team == 1 ? mInputScore1 : mInputScore2);
 		// Parse la saisie en int
 		try {
 			point = Integer.parseInt(input.getText().toString());
@@ -431,21 +351,21 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 			// Erreur (overflow,.. etc)
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.error_format), Toast.LENGTH_LONG).show();
-			input_score1.setText("");
-			input_score2.setText("");
+			mInputScore1.setText("");
+			mInputScore2.setText("");
 			return;
 		}
 
 		/* calculs les points de l'equipe */
 		// Regarde si on a tout atout
-		final boolean toutAtout = ratingBar.getRating() == TOUT_ATOUT_RATING;
+		final boolean isAllAsset = mRatingBar.getRating() == sAllAssetRating;
 
 		// Points maximum
 		// En tout atout, la partie vaut plus de points
-		final int max = (toutAtout ? MATCH_TOUTATOUT_VALUE : MATCH_VALUE);
+		final int max = (isAllAsset ? sMatchAllAsset : sMatch);
 
 		// Erreur, les points sont trop eleves (accepte le bonus de match)
-		if (v.getId() == R.id.btn_score && point > max && point != max + BONUS) {
+		if (v.getId() == R.id.btn_score && point > max && point != max + sBonus) {
 
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.error_high_value), Toast.LENGTH_LONG)
@@ -454,16 +374,16 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 		}
 
 		// Plus d'erreur,... on se charge des saisies
-		input_score1.setText("");
-		input_score2.setText("");
+		mInputScore1.setText("");
+		mInputScore2.setText("");
 
 		/* Ajoute les points comme une annonce */
 		if (v.getId() == R.id.btn_announcement) {
-			addAnnounce((team1 ? 1 : 2), point, coefficient);
+			mScore.addAnnounce(team, point * mCoefficient);
 			return;
 		}
 		/* Ajoute les points comme score */
-		addPoints((team1 ? 1 : 2), point, max, coefficient);
+		addPoints(team, point, max, mCoefficient);
 	}
 
 	/**
@@ -473,8 +393,8 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	 */
 	public void textChangedListener() {
 		// Si les inputs 1 et 2 sont vides
-		final boolean isEmpty1 = input_score1.getText().toString().equals("");
-		final boolean isEmpty2 = input_score2.getText().toString().equals("");
+		final boolean isEmpty1 = mInputScore1.getText().toString().equals("");
+		final boolean isEmpty2 = mInputScore2.getText().toString().equals("");
 		// Recupere les boutons
 		final Button btn_score = (Button) findViewById(R.id.btn_score);
 		final Button btn_announcement = (Button) findViewById(R.id.btn_announcement);
@@ -495,8 +415,8 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 			style_an = style_score = R.style.TeamNone;
 		}
 		// Active la saisie du score pour une seule equipe a la fois
-		input_score1.setEnabled(isEmpty2);
-		input_score2.setEnabled(isEmpty1);
+		mInputScore1.setEnabled(isEmpty2);
+		mInputScore2.setEnabled(isEmpty1);
 
 		// Applique le style sur les boutons
 		btn_score.setTextAppearance(getApplicationContext(), style_score);

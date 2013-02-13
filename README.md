@@ -51,6 +51,10 @@ La boîte de dialogue "A propos" est tirée du dépot [markers-for-android-updat
 
 Le graphique est réalisé via la librairie [GraphView 3.0](http://www.jjoe64.com/p/graphview-library.html) produite par Jonas Gehring sous licence [LGPL](http://www.gnu.org/licenses/lgpl.html).
 
+Ce programme utilise la librairie ActionBar-Sherlock ([1](http://actionbarsherlock.com), [2](https://github.com/JakeWharton/ActionBarSherlock)) réalisé par Jake Wharton sous Licence [Apache 2](http://www.apache.org/licenses/LICENSE-2.0).
+
+
+
 	Pour me contacter: constantin(dot)laurent[4t]gmail.com
 
 # Traduction

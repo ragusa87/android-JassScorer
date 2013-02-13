@@ -13,14 +13,13 @@ import helpers.TeamNameHelper;
 
 import java.util.Observable;
 
+import com.actionbarsherlock.app.SherlockActivity;
+
 import scoreManager.ScoreGraph;
 import scoreManager.ScoreStack;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,8 +27,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,8 +36,12 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 // TODO: Forcer le choix du rating apres chaque saisie
-public class MainActivity extends Activity implements OnRatingBarChangeListener {
+public class MainActivity extends SherlockActivity implements
+		OnRatingBarChangeListener {
 	// Valeurs par defaut
 	private final static int sInitRating = 1;
 	private final static int sAllAssetRating = 6;
@@ -106,22 +107,11 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	}
 
 	/**
-	 * Redessine l'actionBar (des android 3.0 Honeycomb) pour prendre en compte
-	 * les modifications du menu
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public void refreshActionBar() {
-		if (Build.VERSION.SDK_INT >= 11) {
-			invalidateOptionsMenu();
-		}
-	}
-
-	/**
 	 * Mise a jour du graphique
 	 */
 	public void graphUpdate() {
 		// Mise a jour de l'actionBar
-		refreshActionBar();
+		supportInvalidateOptionsMenu();
 
 		// Recupere le layout du graphique
 		LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
@@ -176,10 +166,10 @@ public class MainActivity extends Activity implements OnRatingBarChangeListener 
 	 * 
 	 * @param le menu
 	 * @return true;
-	 * @Override
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_main, menu);
+
 		return true;
 	}
 

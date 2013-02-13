@@ -1,6 +1,6 @@
 # Chibre pour Android
 
-Laurent Constantin -  Janvier 2013
+Laurent Constantin -  Février 2013
 
 Cette application a pour but de notter les points lors d'une partie de chibre / Jass.
 Chaque variante de jeu a un coefficient qui lui est propre.
@@ -62,6 +62,8 @@ Le programme est disponible dans les langues suivantes:
 
 Si vous souhaitez d'autres traductions, envoyez-moi un email (où un pull request) avec les fichiers [strings.xml](https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings.xml) et [strings_activity_settings.xml](https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings_activity_settings.xml) traduits.
 	
-	
+# Compilation
+Pour compiler ce projet, vous devez utiliser librairie [ActionBar-Sherlock](http://actionbarsherlock.com). Cette librairie fournit une implémentation personnalisée de l'actionBar pour les versions d'Android antérieur à la version 3.
+
 # Voir aussi
 Application [aJass](https://play.google.com/store/apps/details?id=com.ajass) (gratuite)

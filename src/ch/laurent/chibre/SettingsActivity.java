@@ -9,6 +9,8 @@
 
 package ch.laurent.chibre;
 
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+
 import helpers.AboutHelper;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -22,7 +24,7 @@ import ch.laurent.chibre.R;
  * 
  * @see http://developer.android.com/guide/topics/ui/settings.html.
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends SherlockPreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

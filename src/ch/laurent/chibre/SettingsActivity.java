@@ -11,12 +11,12 @@ package ch.laurent.chibre;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
-import helpers.AboutHelper;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
 import ch.laurent.chibre.R;
+import ch.laurent.helpers.AboutHelper;
 
 /**
  * {@link PreferenceActivity} pour la configuration (nom des equipes) et

@@ -6,7 +6,7 @@
  * 
  * Copyright (c) 2013 by Laurent Constantin <constantin.laurent@gmail.com>
  */
-package scoreManager;
+package ch.laurent.scoreManager;
 
 import java.util.Observable;
 import java.util.Stack;

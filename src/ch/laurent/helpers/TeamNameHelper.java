@@ -6,7 +6,7 @@
  * 
  * Copyright (c) 2013 by Laurent Constantin <constantin.laurent@gmail.com>
  */
-package helpers;
+package ch.laurent.helpers;
 
 import ch.laurent.chibre.R;
 import android.content.Context;

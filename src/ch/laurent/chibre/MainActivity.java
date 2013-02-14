@@ -9,14 +9,15 @@
 
 package ch.laurent.chibre;
 
-import helpers.TeamNameHelper;
 
 import java.util.Observable;
 
+import ch.laurent.helpers.TeamNameHelper;
+import ch.laurent.scoreManager.ScoreGraph;
+import ch.laurent.scoreManager.ScoreStack;
+
 import com.actionbarsherlock.app.SherlockActivity;
 
-import scoreManager.ScoreGraph;
-import scoreManager.ScoreStack;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;

@@ -6,18 +6,18 @@
  * 
  * Copyright (c) 2013 by Laurent Constantin <constantin.laurent@gmail.com>
  */
-package scoreManager;
+package ch.laurent.scoreManager;
 
-import helpers.TeamNameHelper;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import scoreManager.ScoreStack.Score;
 
 import android.content.Context;
 import android.view.View;
 import ch.laurent.chibre.R;
+import ch.laurent.helpers.TeamNameHelper;
+import ch.laurent.scoreManager.ScoreStack.Score;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewSeries;

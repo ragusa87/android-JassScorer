@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name"  translatable="false">Jass scorer</string>
+    <string name="app_author"  translatable="false">Laurent Constantin</string>
+
+    <!-- Legende -->
+    <string-array name="type_array">
+        <item>Simple</item>
+        <item>Double</item>
+        <item>Downward</item>
+        <item>Upwards</item>
+        <item>Slalom</item>
+        <item>Any asset</item>
+    </string-array>
+
+    <!-- Equipes -->
+    <string name="team_1">Team 1</string>
+    <string name="team_2">Team 2</string>
+
+    <plurals name="points">
+        <item quantity="zero">%d point</item>
+        <item quantity="one">%d point</item>
+        <item quantity="other">%d points</item>
+    </plurals>
+
+    <!-- Inputs -->
+    <string name="score_input_1">Input for team 1</string>
+    <string name="score_input_2">Input for team 2</string>
+
+    <!-- boutons -->
+    <string name="announcement_btn">Announcement</string>
+    <string name="score_btn">Score</string>
+
+    <!-- menu -->
+    <string name="menu_reset">Reset</string>
+    <string name="menu_about">About</string>
+    <string name="menu_cancel">Cancel</string>
+    <string name="menu_settings">Settings</string>
+    <!-- messages d'erreur et de confirmations -->
+    <string name="error_high_value">Score is too high</string>
+    <string name="error_format">Invalid number</string>
+    <string name="score_reset_confirm_title">Reset ?</string>
+    <string name="score_reset_confirm">Do you really want to reset?</string>
+
+    <!-- A Propos -->
+    <string name="about_site_url" translatable="false">http://ragusa87.github.com/android-JassScorer</string>
+    <string name="about_site">Website</string>
+    <string name="about_licence">Licence</string>
+
+</resources>

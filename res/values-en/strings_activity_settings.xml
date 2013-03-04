@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- team name -->
+    <string name="pref_team_name">Choose team name</string>
+    <string name="pref_team_name1_title">Name for team 1</string>
+    <string name="pref_team_name2_title">Name for team 2</string>
+    <string name="pref_team_name1_sample">Alice &amp; Bob</string>
+    <string name="pref_team_name2_sample">Charlie &amp; Dave</string>
+
+</resources>

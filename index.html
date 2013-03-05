@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    
+	    <meta name="author" content="Laurent Constantin">
+    <link href="css/stylesheet.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/pygment_trac.css" rel="stylesheet" type="text/css" media="all">
+
+   
+    <title>Jass Scorer</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ragusa87/android-JassScorer/">View on GitHub</a>
+
+          <h1 id="project_title">Jass Scorer</h1>
+          <h2 id="project_tagline">An application for calculating score</h2>
+
+          <section id="downloads">
+            <a class="apk_download_link" href="https://github.com/ragusa87/android-JassScorer/blob/master/download/Chibre-debug.apk?raw=true">Download this project as a akp file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id='chibre_pour_android'>Chibre pour Android</h1>
+
+<p>Laurent Constantin - Février 2013</p>
+
+<p>Cette application a pour but de notter les points lors d&#8217;une partie de chibre / Jass. Chaque variante de jeu a un coefficient qui lui est propre.</p>
+
+<h1 id='variantes_de_jeu'>Variantes de jeu</h1>
+
+<pre><code>1. Simple (Carreau ou Coeur)
+2. Double (Treffle ou Pique)
+3. De Haut en bas (Pas d&#39;atout, l&#39;as est le plus fort)
+4. De bas en haut (Pas d&#39;atout, le 6 est le plus fort)
+5. Slalom (Pas d&#39;atout, l&#39;as et le 6 sont les plus forts, une fois sur 2)
+6. Tout-atout (Pas d&#39;atout, le buur est le plus fort, suivit du nell)</code></pre>
+
+<ul>
+<li>Les coefficients sont respectivement de : 1,2,3,4,5,2.</li>
+
+<li>Le score et les annonces sont à saisir avec un coefficient de 1, le reste est calculé automatiquement.</li>
+
+<li>Une partie vaut 157 points, et 259 points en tout-atout.</li>
+
+<li>En cas de match, vous devez saisir 100 points de plus (257 points ou 359 points). Il est aussi possible de saisir 0 pour l&#8217;équipe perdante afin de valider un match.</li>
+</ul>
+
+<h1 id='saisie_du_score'>Saisie du score</h1>
+
+<ol>
+<li>Choisir le champ de saisie de l&#8217;équipe 1 ou de l&#8217;équipe 2.</li>
+
+<li>Entrer le score de l&#8217;équipe (en x1).</li>
+
+<li>Cliquer sur &#8220;CALCULER LE SCORE&#8221;, les scores des deux équipes sont calculés et ajoutés.</li>
+</ol>
+
+<p>Si un message vous indique que le score est trop grand, c&#8217;est qu&#8217;il se situe entre 157 et 257 points (non compris) ou entre 259 et 359 points en tout atout.</p>
+
+<h1 id='saisie_dune_annonce'>Saisie d&#8217;une annonce</h1>
+
+<ol>
+<li>Choisir le champ de saisie de l&#8217;équipe 1 ou de l&#8217;équipe 2.</li>
+
+<li>Entrer la valeur de l&#8217;annonce (x1).</li>
+
+<li>Cliquer sur &#8220;Annonce&#8221; pour ajouter le score a l&#8217;équipe choisie.</li>
+</ol>
+
+<p>Aucune validation sur la valeur de l&#8217;annonce n&#8217;est faite.</p>
+
+<h1 id='correction'>Correction</h1>
+
+<p>Pour corriger un score, utiliser la fonction &#8220;Annuler&#8221; du menu.</p>
+
+<h1 id='remise__zro'>Remise à zéro</h1>
+
+<p>Le score peut être remis à zéro par l&#8217;intermédiaire du menu.</p>
+
+<h1 id='licence'>Licence</h1>
+
+<p>Ce programme est sous licence <a href='http://creativecommons.org/licenses/by-nc-sa/3.0/'>Attribution-NonCommercial-ShareAlike 3.0 Unported</a></p>
+
+<p>Le logo, contient des éléments tirés de <a href='http://en.wikipedia.org/wiki/File:Playing_card_club_A.svg'>Wikipedia</a> sous licence <a href='http://creativecommons.org/licenses/by-sa/3.0/deed.en'>Attribution-ShareAlike 3.0 Unported</a>. Il a été réalisée par Laurent Constantin sur la base des cartes de <a href='http://en.wikipedia.org/wiki/User:Cburnett'>Cburnett</a>.</p>
+
+<p>La boîte de dialogue &#8220;A propos&#8221; est tirée du dépot <a href='https://github.com/FunkyAndroid/markers-for-android-updated/tree/master/res/drawable-xhdpi'>markers-for-android-updated</a> et est sous licence <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache 2</a>.</p>
+
+<p>Le graphique est réalisé via la librairie <a href='http://www.jjoe64.com/p/graphview-library.html'>GraphView 3.0</a> produite par Jonas Gehring sous licence <a href='http://www.gnu.org/licenses/lgpl.html'>LGPL</a>.</p>
+
+<p>Ce programme utilise la librairie ActionBar-Sherlock (<a href='http://actionbarsherlock.com'>1</a>, <a href='https://github.com/JakeWharton/ActionBarSherlock'>2</a>) réalisé par Jake Wharton sous Licence <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache 2</a>.</p>
+
+<pre><code>Pour me contacter: constantin(dot)laurent[4t]gmail.com</code></pre>
+
+<h1 id='traduction'>Traduction</h1>
+
+<p>Le programme est disponible dans les langues suivantes:</p>
+
+<ul>
+<li>Français</li>
+
+<li>Anglais</li>
+
+<li>Allemand (Traduit via Google Translate)</li>
+</ul>
+
+<p>Si vous souhaitez d&#8217;autres traductions, envoyez-moi un email (où un pull request) avec les fichiers <a href='https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings.xml'>strings.xml</a> et <a href='https://github.com/ragusa87/android-Chibre/blob/master/res/values/strings_activity_settings.xml'>strings_activity_settings.xml</a> traduits.</p>
+
+<h1 id='compilation'>Compilation</h1>
+
+<p>Pour compiler ce projet, vous devez utiliser librairie <a href='http://actionbarsherlock.com'>ActionBar-Sherlock</a>. Cette librairie fournit une implémentation personnalisée de l&#8217;actionBar pour les versions d&#8217;Android antérieur à la version 3.</p>
+
+<h1 id='voir_aussi'>Voir aussi</h1>
+
+<p>Application <a href='https://play.google.com/store/apps/details?id=com.ajass'>aJass</a> (gratuite)</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p>&copy; 2013 Laurent Constantin</p>
+      </footer>
+    </div>
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-39019718-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>		
+  </body>
+</html>

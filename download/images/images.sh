@@ -23,3 +23,7 @@ convert as_615.png -resize 256x256 ../../res/drawable-mdpi/as_large.png
 
 convert as_615.png -resize 96x96 ../../res/drawable-xhdpi/as.png
 convert as_615.png -resize 512x512 ../../res/drawable-xhdpi/as_large.png
+
+
+convert SVG:as_main.svg -resize 150x150 ../../../jekyll/images/logo.png
+convert SVG:as_main.svg -resize 128x128 ../../../jekyll/images/favicon.png

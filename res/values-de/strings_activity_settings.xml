@@ -3,6 +3,4 @@
     <string name="pref_team_name">Wählen Teamnamen</string>
     <string name="pref_team_name1_title">Name für Team 1</string>
     <string name="pref_team_name2_title">Name für Team 2</string>
-    <string name="pref_team_name1_sample">Alice &amp; Bob</string>
-    <string name="pref_team_name2_sample">Carol &amp; Dave</string>
 </resources>

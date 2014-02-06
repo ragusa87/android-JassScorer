@@ -191,9 +191,9 @@ public class MainActivity extends SherlockActivity implements
 	 * @param item L'element selectionne
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+		final int id = item.getItemId();
 		// Reset
-		case R.id.menu_reset:
+		if(id == R.id.menu_reset){
 			// Confirmation pour reset()
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(getString(R.string.score_reset_confirm))
@@ -218,17 +218,17 @@ public class MainActivity extends SherlockActivity implements
 							});
 			builder.create().show();
 			return true;
-		case R.id.menu_settings:
+		}else if(id == R.id.menu_settings){
 			// Lance les parametres
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
-		case R.id.menu_cancel:
+		}else if (id == R.id.menu_cancel){
 			// Annule la derniere saisie
 			mScore.cancel();
 			return true;
-		default:
-			return false;
 		}
+		return false;
+		
 	}
 
 	/**
@@ -317,7 +317,7 @@ public class MainActivity extends SherlockActivity implements
 			// Set score for current team.
 			TextView txt = (TextView) findViewById(id_label);
 			String displayScore = TeamNameHelper.getTeamName(
-					getApplicationContext(), team) + " : ";
+					this, team) + " : ";
 			displayScore += r.getQuantityString(R.plurals.points, points,
 					points);
 			txt.setText(displayScore);

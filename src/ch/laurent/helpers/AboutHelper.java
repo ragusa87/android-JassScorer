@@ -65,6 +65,71 @@ public class AboutHelper {
 	}
 
 	/**
+	 * Ouvre le site web
+	 * @param mContext Contexte de l'application
+	 */
+	public static void openWebsite(Context mContext) {
+		final String WEB_URL = mContext.getString(R.string.about_site_url);
+		Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(WEB_URL));
+		mContext.startActivity(urlIntent);
+	}
+
+	/**
+	 * Affiche la boite de dialogue "A Propos".
+	 * @param activityContext Context of the activity
+	 */
+	public static void showAbout(final Context activityContext) {
+		final String mWebBoutton = activityContext.getString(R.string.about_site);
+		final String mLicenceButton = activityContext
+				.getString(R.string.about_licence);
+		final String mAboutTitle = activityContext.getString(R.string.menu_about);
+	
+		// Cree une AlertBox
+		final AlertDialog.Builder builder = new AlertDialog.Builder(activityContext);
+		builder.setTitle(mAboutTitle);
+		builder.setCancelable(true);
+	
+		// Charge le layout
+		LayoutInflater inflater = (LayoutInflater) activityContext
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View layout = inflater.inflate(R.layout.about_box, null);
+		builder.setView(layout);
+	
+		// Change la typo du titre
+		TextView title = (TextView) layout.findViewById(R.id.about_title);
+		Typeface light = Typeface.create("sans-serif-light", Typeface.NORMAL);
+		title.setTypeface(light);
+		title.setText(activityContext.getString(R.string.app_name) + " "
+				+ getVersionString(activityContext));
+	
+		// Change le titre (nom + version)
+		title.setText(activityContext.getString(R.string.app_name) + " "
+				+ getVersionString(activityContext));
+	
+		// Ajoute des boutons pour "A Propos"
+		// Bouton pour ouvrir la page web
+		builder.setPositiveButton(mWebBoutton, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				AboutHelper.openWebsite(activityContext);
+			}
+	
+		});
+		// Bouton pour ouvrir la licence
+		builder.setNegativeButton(mLicenceButton, new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				showLicence(activityContext);
+			}
+		});
+	
+		// Affiche la boite de dialgue cree
+		builder.create().show();
+	}
+
+	/**
 	 * Renvoie la version de l'application
 	 * 
 	 * @param activity Activite
@@ -85,66 +150,11 @@ public class AboutHelper {
 	}
 
 	/**
-	 * Affiche la boite de dialogue "A Propos".
-	 * @param mContext Context
-	 */
-	public static void showAbout(final Context mContext) {
-		final String mWebBoutton = mContext.getString(R.string.about_site);
-		final String mLicenceButton = mContext
-				.getString(R.string.about_licence);
-		final String mAboutTitle = mContext.getString(R.string.menu_about);
-
-		// Cree une AlertBox
-		final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-		builder.setTitle(mAboutTitle);
-		builder.setCancelable(true);
-
-		// Charge le layout
-		LayoutInflater inflater = (LayoutInflater) mContext
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View layout = inflater.inflate(R.layout.about_box, null);
-		builder.setView(layout);
-
-		// Change la typo du titre
-		TextView title = (TextView) layout.findViewById(R.id.about_title);
-		Typeface light = Typeface.create("sans-serif-light", Typeface.NORMAL);
-		title.setTypeface(light);
-		title.setText(mContext.getString(R.string.app_name) + " "
-				+ getVersionString(mContext));
-
-		// Change le titre (nom + version)
-		title.setText(mContext.getString(R.string.app_name) + " "
-				+ getVersionString(mContext));
-
-		// Ajoute des boutons pour "A Propos"
-		// Bouton pour ouvrir la page web
-		builder.setPositiveButton(mWebBoutton, new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				AboutHelper.openWebsite(mContext);
-			}
-
-		});
-		// Bouton pour ouvrir la licence
-		builder.setNegativeButton(mLicenceButton, new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				showLicence(mContext);
-			}
-		});
-
-		// Affiche la boite de dialgue cree
-		builder.create().show();
-	}
-
-	/**
 	 * Affiche la boite de dialogue "Licence"
 	 * 
 	 * @param mContext
 	 */
-
+	
 	public static void showLicence(final Context mContext) {
 		final String LICENCE_TITLE = mContext.getString(R.string.about_licence);
 		final String BOUTTON_OK = mContext.getString(android.R.string.ok);
@@ -154,7 +164,7 @@ public class AboutHelper {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 		builder.setTitle(LICENCE_TITLE);
 		builder.setCancelable(true);
-
+	
 		// Cree le layout (sans XML)
 		LinearLayout linearLayout = new LinearLayout(mContext);
 		WebView webview = new WebView(mContext);
@@ -164,7 +174,7 @@ public class AboutHelper {
 				null);
 		linearLayout.addView(webview);
 		builder.setView(linearLayout);
-
+	
 		// Pour la licence, bouton back
 		builder.setNeutralButton(BOUTTON_OK, new OnClickListener() {
 			@Override
@@ -172,18 +182,8 @@ public class AboutHelper {
 				dialog.dismiss();
 			}
 		});
-
+	
 		// Affiche la boite de dialgue cree
 		builder.create().show();
-	}
-
-	/**
-	 * Ouvre le site web
-	 * @param mContext Contexte de l'application
-	 */
-	public static void openWebsite(Context mContext) {
-		final String WEB_URL = mContext.getString(R.string.about_site_url);
-		Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(WEB_URL));
-		mContext.startActivity(urlIntent);
 	}
 }

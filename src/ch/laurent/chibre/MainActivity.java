@@ -384,8 +384,8 @@ public class MainActivity extends SherlockActivity implements
 	 */
 	public void textChangedListener() {
 		// Si les inputs 1 et 2 sont vides
-		final boolean isEmpty1 = mInputScore1.getText().toString().equals("");
-		final boolean isEmpty2 = mInputScore2.getText().toString().equals("");
+		final boolean isEmpty1 = mInputScore1.getText().toString().trim().equals("");
+		final boolean isEmpty2 = mInputScore2.getText().toString().trim().equals("");
 		// Recupere les boutons
 		final Button btn_score = (Button) findViewById(R.id.btn_score);
 		final Button btn_announcement = (Button) findViewById(R.id.btn_announcement);

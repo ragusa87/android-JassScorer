@@ -74,6 +74,7 @@ public class MainActivity extends SherlockActivity implements
 
 	/**
 	 * Lorsque l'activite est cree.
+	 * @param savedInstanceState Bundle pour restaurer l'etat
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -165,7 +166,7 @@ public class MainActivity extends SherlockActivity implements
 	/**
 	 * Cree le menu contextuel
 	 * 
-	 * @param le menu
+	 * @param menu le menu
 	 * @return true;
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,6 +177,8 @@ public class MainActivity extends SherlockActivity implements
 
 	/**
 	 * Active ou desactive les options du menu a la volee
+	 * @param menu le menu
+ 	 * @return true;
 	 */
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		final boolean enable = mScore.isCancellable();
@@ -189,6 +192,7 @@ public class MainActivity extends SherlockActivity implements
 	 * Lors de la selection d'un element du menu
 	 * 
 	 * @param item L'element selectionne
+ 	 * @return true Si l'element est gere;
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
 		final int id = item.getItemId();
@@ -236,7 +240,7 @@ public class MainActivity extends SherlockActivity implements
 	 * points et mets a jour la legende
 	 * 
 	 * @Override
-	 * @param ratinBar La barre de rating
+	 * @param ratingBar La barre de rating
 	 * @param rating La valeur de la barre de rating
 	 * @param fromUser Indique si la mise a jour est faite par l'utilisateur
 	 */

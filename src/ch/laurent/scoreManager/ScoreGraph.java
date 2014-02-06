@@ -53,13 +53,13 @@ public abstract class ScoreGraph implements Observer {
 	 * @param main L'activite Main
 	 * @param scoreStack Le score
 	 */
-	public ScoreGraph(Context mContext, ScoreStack scoreStack) {
-		mGraphView = new LineGraphView(mContext, "");
-		mTeamName = new String[] { TeamNameHelper.getTeamName(mContext, 1),
-				TeamNameHelper.getTeamName(mContext, 2) };
+	public ScoreGraph(Context mActContext, ScoreStack scoreStack) {
+		mGraphView = new LineGraphView(mActContext, "");
+		mTeamName = new String[] { TeamNameHelper.getTeamName(mActContext, 1),
+				TeamNameHelper.getTeamName(mActContext, 2) };
 
-		mTeam1Color = mContext.getResources().getColor(R.color.red);
-		mTeam2Color = mContext.getResources().getColor(R.color.blue);
+		mTeam1Color = mActContext.getResources().getColor(R.color.red);
+		mTeam2Color = mActContext.getResources().getColor(R.color.blue);
 
 		setScoreStack(scoreStack);
 

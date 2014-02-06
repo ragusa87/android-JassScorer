@@ -7,14 +7,14 @@
             android:key="pref_team_name1"
             android:maxLines="1"
             android:singleLine="true"
-            android:summary="@string/pref_team_name1_sample"
+            android:summary="@string/team_1"
             android:title="@string/pref_team_name1_title" />
         <EditTextPreference
             android:defaultValue="@string/team_2"
             android:key="pref_team_name2"
             android:maxLines="1"
             android:singleLine="true"
-            android:summary="@string/pref_team_name2_sample"
+            android:summary="@string/team_2"
             android:title="@string/pref_team_name2_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_about_category" >

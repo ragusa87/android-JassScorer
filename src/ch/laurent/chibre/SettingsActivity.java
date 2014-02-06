@@ -29,18 +29,50 @@ import ch.laurent.helpers.TeamNameHelper;
  * 
  * @see http://developer.android.com/guide/topics/ui/settings.html.
  */
-public class SettingsActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
+public class SettingsActivity extends SherlockPreferenceActivity implements
+		OnSharedPreferenceChangeListener {
+	/**
+	 * Tell if device support fragment They are supported since android
+	 * HONEYCOMB (v11)
+	 * 
+	 * @return true if fragments are supported
+	 */
+	private boolean supportFragment() {
+		try {
+			getClass().getMethod("getFragmentManager");
+			return true;
+		} catch (NoSuchMethodException e) {
+			return false;
+		}
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		try {
-			getClass().getMethod("getFragmentManager");
+		if (supportFragment()) {
 			AddResourceApi11AndGreater();
-		} catch (NoSuchMethodException e) { // Api < 11
+		} else {
 			AddResourceApiLessThan11();
 		}
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (!supportFragment())
+			getPreferenceScreen().getSharedPreferences()
+					.registerOnSharedPreferenceChangeListener(this);
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (!supportFragment())
+			getPreferenceScreen().getSharedPreferences()
+					.unregisterOnSharedPreferenceChangeListener(this);
+	}
 
 	@SuppressWarnings("deprecation")
 	// Old api
@@ -53,9 +85,7 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnSh
 		showWebsite(activityContext, findPreference("website"));
 		setTeamsSummary(activityContext, findPreference("pref_team_name1"),
 				findPreference("pref_team_name2"));
-		getPreferenceManager().getSharedPreferences()
-		.registerOnSharedPreferenceChangeListener(this);
-
+		onSharedPreferenceChanged(null, "");
 	}
 
 	@TargetApi(11)
@@ -130,20 +160,35 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnSh
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			getPreferenceManager().getSharedPreferences()
-					.registerOnSharedPreferenceChangeListener(this);
-	
 			addPreferencesFromResource(R.xml.pref_general);
+
 			final Context c = getActivity(); // use app context here.
 			SettingsActivity.setAboutSection(c, findPreference("about"));
 			SettingsActivity.showLicences(c, findPreference("opensource"));
 			SettingsActivity.showAbout(c, findPreference("about"));
 			SettingsActivity.showWebsite(c, findPreference("website"));
+			
 			SettingsActivity.setTeamsSummary(c,
 					findPreference("pref_team_name1"),
 					findPreference("pref_team_name2"));
 		}
-	
+
+		@Override
+		public void onResume() {
+			super.onResume();
+			// Set up a listener whenever a key changes
+			getPreferenceScreen().getSharedPreferences()
+					.registerOnSharedPreferenceChangeListener(this);
+		}
+
+		@Override
+		public void onPause() {
+			super.onPause();
+			// Set up a listener whenever a key changes
+			getPreferenceScreen().getSharedPreferences()
+					.unregisterOnSharedPreferenceChangeListener(this);
+		}
+
 		@Override
 		public void onSharedPreferenceChanged(
 				SharedPreferences sharedPreferences, String key) {
@@ -151,9 +196,9 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnSh
 			final Preference team2 = findPreference("pref_team_name2");
 			if (team1 == null || team2 == null)
 				return;
-	
+
 			SettingsActivity.setTeamsSummary(getActivity(), team1, team2);
-	
+
 		}
 	}
 
@@ -163,9 +208,9 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnSh
 			String key) {
 		// API level < 11 only
 		Preference team1 = findPreference("pref_team_name1");
-			Preference team2 = findPreference("pref_team_name2");
-			if (team1 != null & team2 != null)
-				setTeamsSummary(this, team1, team2);
-		
+		Preference team2 = findPreference("pref_team_name2");
+		if (team1 != null & team2 != null)
+			setTeamsSummary(this, team1, team2);
+
 	}
 }

@@ -18,15 +18,16 @@ import android.preference.PreferenceManager;
  *
  */
 public class TeamNameHelper {
-	// Noms des champs de preferences
+	// Preferences fields.
 	private final static String sPrefTeam1Name = "pref_team_name1";
 	private final static String sPrefTeam2Name = "pref_team_name2";
 	
 	/**
-	 * Obtient le nom d'une equipe
+	 * Get a team name
 	 * 
-	 * @param teamId Le numero de l'equipe (1 ou 2)
-	 * @return Le nom de l'equipe
+	 * @param c Context
+	 * @param teamId Team id (1 or 2)
+	 * @return Team name
 	 */
 	public static String getTeamName(Context c,int teamId) {
 
@@ -34,16 +35,16 @@ public class TeamNameHelper {
 		final String pref_teamName_label = (teamId == 1 ? sPrefTeam1Name
 				: sPrefTeam2Name);
 
-		// Nom de l'equipe par default
+		// Default name
 		final int id_string = (teamId == 1 ? R.string.team_1 : R.string.team_2);
 		final SharedPreferences mPreferences = PreferenceManager
 				.getDefaultSharedPreferences(c);
 
-		// Recupere le nom de l'equipe depuis les preferences
+		// Load pref
 		String teamName = mPreferences.getString(pref_teamName_label,
 				c.getString(id_string));
 
-		// Premier caractere en majuscule
+		// First char as uppercase
 		if (teamName.length() >= 2)
 			teamName = Character.toUpperCase(teamName.charAt(0))
 					+ teamName.substring(1);

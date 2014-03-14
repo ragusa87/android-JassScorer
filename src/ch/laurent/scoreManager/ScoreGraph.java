@@ -27,31 +27,28 @@ import com.jjoe64.graphview.LineGraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
 
 /**
- * Affiche le score des parties dans un graphique Le score est represente par
- * ScoreStack
- * 
- * @author Laurent Constantin
- * @see https://github.com/jjoe64/GraphView/
+ * The the score as a graph
+ * For the library, see https://github.com/jjoe64/GraphView/
  */
 public abstract class ScoreGraph implements Observer {
-	// Le graphique
+	// Graph
 	final GraphView mGraphView;
-	// La pile de score
+	// Stack
 	ScoreStack mScoreStack;
-	// Le nombre de series presents dans le graphe (2 ou 0)
+	// number of serie into the stack (0 or 2)
 	int mNbSeries = 0;
 
-	// Couleur des equipes
+	// Team's color
 	final int mTeam1Color;
 	final int mTeam2Color;
 
 	final String[] mTeamName;
 
 	/**
-	 * Instancie le graphe
+	 * Init
 	 * 
-	 * @param main L'activite Main
-	 * @param scoreStack Le score
+	 * @param mActContext Main activity context
+	 * @param scoreStack Score
 	 */
 	public ScoreGraph(Context mActContext, ScoreStack scoreStack) {
 		mGraphView = new LineGraphView(mActContext, "");
@@ -66,9 +63,9 @@ public abstract class ScoreGraph implements Observer {
 	}
 
 	/**
-	 * Change le ScoreStack du graph
+	 * Updating the stack with a new one.
 	 * 
-	 * @param scoreStack
+	 * @param scoreStack The new stack
 	 */
 	public void setScoreStack(ScoreStack scoreStack) {
 		// Supprime l'observateur
@@ -81,61 +78,61 @@ public abstract class ScoreGraph implements Observer {
 	}
 
 	/**
-	 * Genere le graph
+	 * Generate the graph
 	 */
 	private void generate() {
 		if (mScoreStack == null)
 			return;
 		
-		// Efface les series precedentes
+		// Remove previous series
 		while (mNbSeries > 0) {
 			mGraphView.removeSeries(0);
 			mNbSeries--;
 		}
-		// Boucle pour afficher les traits de chaque equipe
+		// loop to display each team lines
 		int topScore = 0;
 		
-		// Constuit la serie de score pour chaque equipe
+		// Build the score for each team
 		for (int team = 1; team < 3; team++) {
 			final int mColor = (team == 1 ? mTeam1Color : mTeam2Color);
 			
-			// Tableau des scores
+			// scores table
 			GraphViewData gfd[] = new GraphViewData[mScoreStack.getStack()
 					.size()];
-			// Tableau des legendes (vide)
+			// Empty legend array
 			String[] gfdString = new String[gfd.length];
 			
-			// On boucle sur la pile des scores
+			// loop on the stack
 			int i = 0;
 			for (Score s : mScoreStack.getStack()) {
 				final int score = (team == 1 ? s.score1 : s.score2);
 				
-				// Sauve le score max pour la legende verticale
+				// Saving the maximum score for the scale legend
 				topScore = Math.max(topScore,score);
 				
-				// Insertion des points dans le graph
+				// Insert dots.
 				gfd[i] = new GraphViewData(i + 1, score);
 				
-				// Legende horizontales vides
+				// Horizontal legend are empty.
 				gfdString[i] = "";
 				i++;
 			}
-			// Applique les legendes
+			// Apply legend
 			mGraphView.setVerticalLabels(new String[] { topScore + "", "0" });
 			mGraphView.setHorizontalLabels(gfdString);
 
-			// Ajoute les points dans le graph pour l'equipe courante
+			// Add point for the current team
 			mGraphView.addSeries(new GraphViewSeries(mTeamName[team - 1],
 					new GraphViewStyle(mColor, 3), gfd));
-			// Il y a une serie de plus dans le graphe
+			// We a a new serie into the graph
 			mNbSeries++;
 		}
 	}
 
 	/**
-	 * Calcule et renvoie la vue du graph
+	 * Generate and return the view
 	 * 
-	 * @return Le graphe
+	 * @return The view
 	 */
 	public View getView() {
 		generate();
@@ -143,7 +140,7 @@ public abstract class ScoreGraph implements Observer {
 	}
 
 	/**
-	 * Appele lorsque les scores changent
+	 * Called when the score is updated.
 	 */
 	public abstract void update(Observable observable, Object data);
 

@@ -1,17 +1,10 @@
-/*
- * Copyright (C) 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/* LICENSE
+ * This work is licensed under the 
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. 
+ * To view a copy of this license, visit 
+ * http://creativecommons.org/licenses/by-nc-sa/3.0/.
+ * 
+ * Copyright (c) 2013 by Laurent Constantin <constantin.laurent@gmail.com>
  */
 
 package ch.laurent.helpers;
@@ -36,17 +29,17 @@ import android.widget.TextView;
 import ch.laurent.chibre.R;
 
 /**
- * Aide pour les boites de dialogue "A Propos" et "Licence"
+ * Help for dialog box (about, licence,..)
  * 
  * @author Laurent Constantin
  */
 public class AboutHelper {
 	/**
-	 * Charge un fichier et renvoie son contenu
+	 * Load an asset file and return file's content
 	 * 
 	 * @param mContext Context
-	 * @param mFilename Nom du fichier
-	 * @return Contenu du fichier
+	 * @param mFilename filename
+	 * @return file's content
 	 */
 	private static String loadFileText(final Context mContext,
 			final String mFilename) {
@@ -65,8 +58,8 @@ public class AboutHelper {
 	}
 
 	/**
-	 * Ouvre le site web
-	 * @param mContext Contexte de l'application
+	 * Open website
+	 * @param mContext Application context
 	 */
 	public static void openWebsite(Context mContext) {
 		final String WEB_URL = mContext.getString(R.string.about_site_url);
@@ -75,7 +68,7 @@ public class AboutHelper {
 	}
 
 	/**
-	 * Affiche la boite de dialogue "A Propos".
+	 * Show the about box.
 	 * @param activityContext Context of the activity
 	 */
 	public static void showAbout(final Context activityContext) {
@@ -84,30 +77,29 @@ public class AboutHelper {
 				.getString(R.string.about_licence);
 		final String mAboutTitle = activityContext.getString(R.string.menu_about);
 	
-		// Cree une AlertBox
+		// Create alert
 		final AlertDialog.Builder builder = new AlertDialog.Builder(activityContext);
 		builder.setTitle(mAboutTitle);
 		builder.setCancelable(true);
 	
-		// Charge le layout
+		// Load layout
 		LayoutInflater inflater = (LayoutInflater) activityContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View layout = inflater.inflate(R.layout.about_box, null);
 		builder.setView(layout);
 	
-		// Change la typo du titre
+		// Change title's font
 		TextView title = (TextView) layout.findViewById(R.id.about_title);
 		Typeface light = Typeface.create("sans-serif-light", Typeface.NORMAL);
 		title.setTypeface(light);
 		title.setText(activityContext.getString(R.string.app_name) + " "
 				+ getVersionString(activityContext));
 	
-		// Change le titre (nom + version)
+		// Change title (nom + version)
 		title.setText(activityContext.getString(R.string.app_name) + " "
 				+ getVersionString(activityContext));
 	
-		// Ajoute des boutons pour "A Propos"
-		// Bouton pour ouvrir la page web
+		// Adding button (website)
 		builder.setPositiveButton(mWebBoutton, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -116,7 +108,7 @@ public class AboutHelper {
 			}
 	
 		});
-		// Bouton pour ouvrir la licence
+		// Adding button (licence)
 		builder.setNegativeButton(mLicenceButton, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -125,15 +117,15 @@ public class AboutHelper {
 			}
 		});
 	
-		// Affiche la boite de dialgue cree
+		// Show the form
 		builder.create().show();
 	}
 
 	/**
-	 * Renvoie la version de l'application
+	 * Get application's version
 	 * 
-	 * @param activity Activite
-	 * @return Version de l'application
+	 * @param mContext Activite
+	 * @return App version
 	 */
 	public static String getVersionString(final Context mContext) {
 		String version = "";
@@ -150,7 +142,7 @@ public class AboutHelper {
 	}
 
 	/**
-	 * Affiche la boite de dialogue "Licence"
+	 * Show the licence dialog
 	 * 
 	 * @param mContext
 	 */
@@ -160,22 +152,22 @@ public class AboutHelper {
 		final String BOUTTON_OK = mContext.getString(android.R.string.ok);
 		final String LICENCE_FILE = "licenses.html";
 		
-		// Cree une AlertBox
+		// Create a dialog
 		final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 		builder.setTitle(LICENCE_TITLE);
 		builder.setCancelable(true);
 	
-		// Cree le layout (sans XML)
+		// load layout
 		LinearLayout linearLayout = new LinearLayout(mContext);
 		WebView webview = new WebView(mContext);
-		// Charge la page web (locale)
+		// load page from asset
 		webview.loadDataWithBaseURL("file:///android_asset/",
 				loadFileText(mContext, LICENCE_FILE), "text/html", "utf-8",
 				null);
 		linearLayout.addView(webview);
 		builder.setView(linearLayout);
 	
-		// Pour la licence, bouton back
+		// Set buttons (back)
 		builder.setNeutralButton(BOUTTON_OK, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -183,7 +175,7 @@ public class AboutHelper {
 			}
 		});
 	
-		// Affiche la boite de dialgue cree
+		// Show form
 		builder.create().show();
 	}
 }

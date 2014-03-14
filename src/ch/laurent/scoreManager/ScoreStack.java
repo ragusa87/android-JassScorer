@@ -12,29 +12,21 @@ import java.util.Observable;
 import java.util.Stack;
 
 /**
- * Gestion des score pour les deux equipes dans une pile. Ainsi il est possible
- * d'annuler un score.
+ * Managing score for 2 teams in a stack, so it's possible to cancel the last score.
  */
 public class ScoreStack extends Observable {
 	/**
-	 * Classe interne pour stoquer le score. Le score est dans 2 champs
-	 * publiques.
+	 * Internal class to stock the score
 	 */
 	static class Score {
-		/**
-		 * Score de l'equipe 1
-		 */
 		public int score1;
-		/**
-		 * Score de l'equipe 2
-		 */
 		public int score2;
 
 		/**
-		 * Definit le score
+		 * Set score
 		 * 
-		 * @param score1 Score de l'equipe 1
-		 * @param score2 Score de l'equipe 2
+		 * @param score1 Score for team 1
+		 * @param score2 Score for team 2
 		 */
 		Score(final int score1, final int score2) {
 			this.score1 = score1;
@@ -42,10 +34,10 @@ public class ScoreStack extends Observable {
 		}
 
 		/**
-		 * Obtient le score d'une des deux equipes
+		 * Get score for a team
 		 * 
-		 * @param teamId Identifiant de l'equipe 1 ou 2.
-		 * @return Le score de l'equipe 1 ou 2
+		 * @param teamId Team id (1,2)
+		 * @return score
 		 */
 		public int get(final int teamId) {
 			return (teamId == 1 ? score1 : score2);
@@ -53,15 +45,16 @@ public class ScoreStack extends Observable {
 	}
 
 	/**
-	 * Pile des scores
+	 * Stack
 	 */
 	private final Stack<Score> stack = new Stack<Score>();
 
 	/**
-	 * Ajoute le score dans la pile. Si le score est negatif, on le met a zero
+	 * Add score.
+	 * Negative score are remplaced by 0.
 	 */
 	private Score push(final Score s) {
-		// Pas de score negatif
+		// no negative score
 		if (s.score1 < 0)
 			s.score1 = 0;
 
@@ -69,24 +62,24 @@ public class ScoreStack extends Observable {
 			s.score2 = 0;
 
 		Score s2 = stack.push(s);
-		// notifie, (pour mettre a jour le graph)
+		// notify
 		setChanged();
 		notifyObservers();
 		return s2;
 	}
 
 	/**
-	 * Ajoute le score, utilise pour la sauvegarde
+	 * Add score
 	 * 
-	 * @param score1 Le score de l'equipe 1
-	 * @param score2 Le score de l'equipe 2
+     * @param score1 Score for team 1
+	 * @param score2 Score for team 2
 	 */
 	private void push(int score1, int score2) {
 		push(new Score(score1, score2));
 	}
 
 	/**
-	 * Le score de depart est 0,0
+	 * Starting score is (0,0)
 	 */
 	public ScoreStack() {
 		// notifyObservers() sera appele
@@ -94,10 +87,10 @@ public class ScoreStack extends Observable {
 	}
 
 	/**
-	 * Efface touts les scores precedents et definit le nouveau score
+	 * Clear all previous value and set a new one
 	 * 
-	 * @param score1 Score de l'equipe 1
-	 * @param score2 Score de l'equipe 2
+	 * @param score1 Score for team 1
+	 * @param score2 Score for team 2
 	 */
 	public void set(final int score1, final int score2) {
 		stack.clear();
@@ -107,10 +100,10 @@ public class ScoreStack extends Observable {
 	}
 
 	/**
-	 * Ajoute les points au score (en comptant le score precedent)
+	 * Add the previous score with the new one and insert it into the stack.
 	 * 
-	 * @param score1 Points de l'equipe 1
-	 * @param score2 Points de l'equipe 2
+	 * @param score1 Score for team 1
+	 * @param score2 Score for team 2
 	 */
 	public void add(final int score1, final int score2) {
 		Score s = (stack.isEmpty() ? new Score(0, 0) : stack.peek());
@@ -120,60 +113,60 @@ public class ScoreStack extends Observable {
 	}
 
 	/**
-	 * Ajoute une annonce dans le score
+	 * Add an anounce
 	 * 
-	 * @param team Id de l'equipe
-	 * @param announce Montant de l'annonce
+	 * @param team Team id
+	 * @param announce Value
 	 */
 	public void addAnnounce(final int team, final int announce) {
 		int score1 = (team == 1 ? announce : 0);
 		int score2 = (team == 2 ? announce : 0);
-		// notifyObservers() sera appele
+		// notifyObservers() will be called.
 		this.add(score1, score2);
 	}
 
 	/**
-	 * Obtient le score de la team desiree
+	 * Get score for the specified team
 	 * 
-	 * @param team Equipe 1 ou 2
-	 * @return Score de l'equipe 1 ou 2
+	 * @param team Team id
+	 * @return Score
 	 */
 	public int getScore(final int team) {
-		// La pile n'est jamais vide
+		// stack is never empty.
 		return stack.peek().get(team);
 	}
 
 	/**
-	 * Remet a zero le score
+	 * Reset to (0,0)
 	 */
 	public void reset() {
-		// notifyObservers() sera appele
+		// notifyObservers() will be called
 		set(0, 0);
 	}
 
 	/**
-	 * Annule la derniere modification du score
+	 * Cancel the last score
 	 */
 	public void cancel() {
-		// Enleve le dernier score de la pile
+		// Remove from stack
 		if (!stack.empty())
 			stack.pop();
 
-		// S'assure que la pile ne soit jamais vide
+		// Be sure the stack is never empty
 		if (stack.empty()) {
-			// notifyObservers() sera appele
+			// notifyObservers() will be called
 			set(0, 0);
 		} else {
-			// On notifie l'observateur car pas appele
+			// We notify in this case..
 			setChanged();
 			notifyObservers();
 		}
 	}
 
 	/**
-	 * Indique si on peut annuler la derniere modificiation
+	 * Tell if there is a score into the stack
 	 * 
-	 * @return si on peut annuler la derniere modificiation
+	 * @return there is a score into the stack
 	 */
 	public boolean isCancellable() {
 		// La pile contient toujours une valeur (0,0)
@@ -181,9 +174,11 @@ public class ScoreStack extends Observable {
 	}
 
 	/**
-	 * Sauve la pile dans un string
-	 * 
-	 * @return La pile en string
+	 * Saving stack into a string
+	 * Stack = Score ; Score ; Score
+     * Score = score1,score2
+     * 
+	 * @return a string
 	 */
 	public String saveAsString() {
 		// Stack = Score ; Score ; Score
@@ -201,17 +196,19 @@ public class ScoreStack extends Observable {
 	}
 
 	/**
-	 * Renvoie la pile pour iterer sur le score
+	 * Return the stack for the graph
 	 * 
-	 * @return la pile des scores
+	 * @return the stack
 	 */
 	public Stack<ScoreStack.Score> getStack() {
 		return stack;
 	}
 
 	/**
-	 * Reconstruit la pile depuis un string
-	 * @param s Le string
+	 * Build stack from string
+	 * Stack = Score ; Score ; Score
+     * Score = score1,score2
+	 * @param s string
 	 */
 	public void restoreFromString(String s) {
 		if (s == null || s.trim().equals("")) return;

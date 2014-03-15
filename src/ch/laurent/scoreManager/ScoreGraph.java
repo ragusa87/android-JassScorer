@@ -8,10 +8,8 @@
  */
 package ch.laurent.scoreManager;
 
-
 import java.util.Observable;
 import java.util.Observer;
-
 
 import android.content.Context;
 import android.view.View;
@@ -27,8 +25,8 @@ import com.jjoe64.graphview.LineGraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
 
 /**
- * The the score as a graph
- * For the library, see https://github.com/jjoe64/GraphView/
+ * The the score as a graph For the library, see
+ * https://github.com/jjoe64/GraphView/
  */
 public abstract class ScoreGraph implements Observer {
 	// Graph
@@ -47,8 +45,10 @@ public abstract class ScoreGraph implements Observer {
 	/**
 	 * Init
 	 * 
-	 * @param mActContext Main activity context
-	 * @param scoreStack Score
+	 * @param mActContext
+	 *            Main activity context
+	 * @param scoreStack
+	 *            Score
 	 */
 	public ScoreGraph(Context mActContext, ScoreStack scoreStack) {
 		mGraphView = new LineGraphView(mActContext, "");
@@ -65,25 +65,35 @@ public abstract class ScoreGraph implements Observer {
 	/**
 	 * Updating the stack with a new one.
 	 * 
-	 * @param scoreStack The new stack
+	 * @param scoreStack
+	 *            The new stack
 	 */
-	public void setScoreStack(ScoreStack scoreStack) {
+	public synchronized void setScoreStack(ScoreStack scoreStack) {
+		
 		// Supprime l'observateur
-		if (this.mScoreStack != null) {
-			this.mScoreStack.deleteObserver(this);
+		if (mScoreStack != null) {
+			synchronized (mScoreStack) {
+				mScoreStack.deleteObserver(this);
+			}
 		}
 		// Ajout du nouvel observateur
-		this.mScoreStack = scoreStack;
-		this.mScoreStack.addObserver(this);
+		mScoreStack = scoreStack;
+		if(scoreStack == null)
+			return;
+				
+		synchronized (mScoreStack) {
+			mScoreStack.addObserver(this);
+		}
 	}
 
 	/**
 	 * Generate the graph
 	 */
-	private void generate() {
-		if (mScoreStack == null)
-			return;
-		
+	private synchronized void generate() {
+		synchronized (mScoreStack) {
+			if (mScoreStack == null)
+				return;
+		}
 		// Remove previous series
 		while (mNbSeries > 0) {
 			mGraphView.removeSeries(0);
@@ -91,31 +101,35 @@ public abstract class ScoreGraph implements Observer {
 		}
 		// loop to display each team lines
 		int topScore = 0;
-		
+
 		// Build the score for each team
 		for (int team = 1; team < 3; team++) {
 			final int mColor = (team == 1 ? mTeam1Color : mTeam2Color);
-			
-			// scores table
-			GraphViewData gfd[] = new GraphViewData[mScoreStack.getStack()
-					.size()];
-			// Empty legend array
-			String[] gfdString = new String[gfd.length];
-			
-			// loop on the stack
-			int i = 0;
-			for (Score s : mScoreStack.getStack()) {
-				final int score = (team == 1 ? s.score1 : s.score2);
-				
-				// Saving the maximum score for the scale legend
-				topScore = Math.max(topScore,score);
-				
-				// Insert dots.
-				gfd[i] = new GraphViewData(i + 1, score);
-				
-				// Horizontal legend are empty.
-				gfdString[i] = "";
-				i++;
+
+			String gfdString[];
+			GraphViewData gfd[];
+			synchronized (mScoreStack) {
+				// scores table
+				gfd = new GraphViewData[mScoreStack.getStack().size()];
+
+				// Empty legend array
+				gfdString = new String[gfd.length];
+
+				// loop on the stack
+				int i = 0;
+				for (Score s : mScoreStack.getStack()) {
+					final int score = (team == 1 ? s.score1 : s.score2);
+
+					// Saving the maximum score for the scale legend
+					topScore = Math.max(topScore, score);
+
+					// Insert dots.
+					gfd[i] = new GraphViewData(i + 1, score);
+
+					// Horizontal legend are empty.
+					gfdString[i] = "";
+					i++;
+				}
 			}
 			// Apply legend
 			mGraphView.setVerticalLabels(new String[] { topScore + "", "0" });
@@ -134,7 +148,7 @@ public abstract class ScoreGraph implements Observer {
 	 * 
 	 * @return The view
 	 */
-	public View getView() {
+	public synchronized View getView() {
 		generate();
 		return mGraphView;
 	}
@@ -143,5 +157,4 @@ public abstract class ScoreGraph implements Observer {
 	 * Called when the score is updated.
 	 */
 	public abstract void update(Observable observable, Object data);
-
 }

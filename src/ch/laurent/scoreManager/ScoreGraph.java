@@ -12,6 +12,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import ch.laurent.chibre.R;
 import ch.laurent.helpers.TeamNameHelper;
@@ -29,8 +30,6 @@ import com.jjoe64.graphview.GraphView.GraphViewData;
  * https://github.com/jjoe64/GraphView/
  */
 public abstract class ScoreGraph implements Observer {
-	// Graph
-	final GraphView mGraphView;
 	// Stack
 	ScoreStack mScoreStack;
 	// number of serie into the stack (0 or 2)
@@ -41,7 +40,7 @@ public abstract class ScoreGraph implements Observer {
 	final int mTeam2Color;
 
 	final String[] mTeamName;
-
+	final Context mActContext;
 	/**
 	 * Init
 	 * 
@@ -51,7 +50,7 @@ public abstract class ScoreGraph implements Observer {
 	 *            Score
 	 */
 	public ScoreGraph(Context mActContext, ScoreStack scoreStack) {
-		mGraphView = new LineGraphView(mActContext, "");
+		this.mActContext = mActContext;
 		mTeamName = new String[] { TeamNameHelper.getTeamName(mActContext, 1),
 				TeamNameHelper.getTeamName(mActContext, 2) };
 
@@ -89,17 +88,16 @@ public abstract class ScoreGraph implements Observer {
 	/**
 	 * Generate the graph
 	 */
-	private synchronized void generate() {
+	private synchronized GraphView generate() {
+		// Graph
+		final GraphView mGraphView = new LineGraphView(mActContext, "");		
+		
 		synchronized (mScoreStack) {
 			if (mScoreStack == null)
-				return;
+				return mGraphView;
 		}
-		// Remove previous series
-		while (mNbSeries > 0) {
-			mGraphView.removeSeries(0);
-			mNbSeries--;
-		}
-		// loop to display each team lines
+		
+		// Loop to display each team lines
 		int topScore = 0;
 
 		// Build the score for each team
@@ -130,7 +128,9 @@ public abstract class ScoreGraph implements Observer {
 					gfdString[i] = "";
 					i++;
 				}
+				Log.v("JassScorer","topscore: "+ topScore + "  i : " + i);
 			}
+
 			// Apply legend
 			mGraphView.setVerticalLabels(new String[] { topScore + "", "0" });
 			mGraphView.setHorizontalLabels(gfdString);
@@ -141,6 +141,7 @@ public abstract class ScoreGraph implements Observer {
 			// We a a new serie into the graph
 			mNbSeries++;
 		}
+		return mGraphView;
 	}
 
 	/**
@@ -149,8 +150,7 @@ public abstract class ScoreGraph implements Observer {
 	 * @return The view
 	 */
 	public synchronized View getView() {
-		generate();
-		return mGraphView;
+		return generate();
 	}
 
 	/**

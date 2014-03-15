@@ -9,7 +9,6 @@
 
 package ch.laurent.chibre;
 
-
 import java.util.Observable;
 
 import ch.laurent.helpers.TeamNameHelper;
@@ -17,7 +16,6 @@ import ch.laurent.scoreManager.ScoreGraph;
 import ch.laurent.scoreManager.ScoreStack;
 
 import com.actionbarsherlock.app.SherlockActivity;
-
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -42,11 +40,12 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
- * Main activity, allow user to input a score for a team while playing a party of Jass.
- * The application will calculate the score for each team depending on the game type and coefficient.
- * The score is displayed with a graph.
+ * Main activity, allow user to input a score for a team while playing a party
+ * of Jass. The application will calculate the score for each team depending on
+ * the game type and coefficient. The score is displayed with a graph.
+ * 
  * @author Laurent Constantin
- *
+ * 
  */
 public class MainActivity extends SherlockActivity implements
 		OnRatingBarChangeListener {
@@ -81,7 +80,9 @@ public class MainActivity extends SherlockActivity implements
 
 	/**
 	 * Creating activity
-	 * @param savedInstanceState Bundle for saving state
+	 * 
+	 * @param savedInstanceState
+	 *            Bundle for saving state
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -121,27 +122,28 @@ public class MainActivity extends SherlockActivity implements
 		// Update actionbar
 		supportInvalidateOptionsMenu();
 
-		// Get graphic layout
-		final LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
-
-		// Remove previous views
-		layout.removeAllViews();
 		// If the score is not empty, display it.
 		if (mScore.isCancellable()) {
 			final Activity activity = this;
-			// In a new thread, do : layout.addView(mGraph.getView());
+			// In a new thread, do :
+			// - layout.removeAllViews();
+			// - layout.addView(mGraph.getView());
 			new Thread(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					final View v = mGraph.getView();
 					activity.runOnUiThread(new Runnable() {
-				        @Override
-				        public void run() {
-				    		LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
-				        	layout.addView(v);
-				        }
-				});
+						@Override
+						public void run() {
+							LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
+							// Remove previous views
+							synchronized (activity) {
+								layout.removeAllViews();
+								layout.addView(v);
+							}
+						}
+					});
 				}
 			}).start();
 		}
@@ -187,7 +189,8 @@ public class MainActivity extends SherlockActivity implements
 	/**
 	 * Create contextual menu
 	 * 
-	 * @param menu menu
+	 * @param menu
+	 *            menu
 	 * @return true;
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -198,8 +201,10 @@ public class MainActivity extends SherlockActivity implements
 
 	/**
 	 * Enable or disable menu options on the fly
-	 * @param menu le menu
- 	 * @return true;
+	 * 
+	 * @param menu
+	 *            le menu
+	 * @return true;
 	 */
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		final boolean enable = mScore.isCancellable();
@@ -212,13 +217,14 @@ public class MainActivity extends SherlockActivity implements
 	/**
 	 * On item selected from the menu
 	 * 
-	 * @param item Selected item
- 	 * @return true If item is managed
+	 * @param item
+	 *            Selected item
+	 * @return true If item is managed
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
 		final int id = item.getItemId();
 		// Reset
-		if(id == R.id.menu_reset){
+		if (id == R.id.menu_reset) {
 			// Confirm for reset()
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(getString(R.string.score_reset_confirm))
@@ -243,26 +249,30 @@ public class MainActivity extends SherlockActivity implements
 							});
 			builder.create().show();
 			return true;
-		}else if(id == R.id.menu_settings){
+		} else if (id == R.id.menu_settings) {
 			// Settings activity
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
-		}else if (id == R.id.menu_cancel){
+		} else if (id == R.id.menu_cancel) {
 			// Cancel the last score
 			mScore.cancel();
 			return true;
 		}
 		return false;
-		
+
 	}
 
 	/**
-	 * Called when we change the game type. Changing coefficient and update legend
+	 * Called when we change the game type. Changing coefficient and update
+	 * legend
 	 * 
 	 * @Override
-	 * @param ratingBar Rating bar
-	 * @param rating Rating value
-	 * @param fromUser Tell if the update is made by user choice.
+	 * @param ratingBar
+	 *            Rating bar
+	 * @param rating
+	 *            Rating value
+	 * @param fromUser
+	 *            Tell if the update is made by user choice.
 	 */
 	public void onRatingChanged(RatingBar ratingBar, float rating,
 			boolean fromUser) {
@@ -276,17 +286,23 @@ public class MainActivity extends SherlockActivity implements
 			i = 0;
 			ratingBar.setRating(1);
 		}
-		// The coefficient is set, see res/values/integers.xml for possible values.
+		// The coefficient is set, see res/values/integers.xml for possible
+		// values.
 		mCoefficient = getResources().getIntArray(R.array.coeff)[i];
 		txt_legend.setText(legends[i] + " x" + mCoefficient);
 	}
 
 	/**
-	 * Add point to both team	 * 
-	 * @param team Team ID
-	 * @param point Points for the team specified with the ID
-	 * @param max Number of maximum points for a match (without bonus)
-	 * @param coeff Game coefficient
+	 * Add point to both team *
+	 * 
+	 * @param team
+	 *            Team ID
+	 * @param point
+	 *            Points for the team specified with the ID
+	 * @param max
+	 *            Number of maximum points for a match (without bonus)
+	 * @param coeff
+	 *            Game coefficient
 	 */
 	private void addPoints(final int team, int point, int max, final int coeff) {
 		// Handling coeff
@@ -337,8 +353,8 @@ public class MainActivity extends SherlockActivity implements
 
 			// Set score for current team.
 			TextView txt = (TextView) findViewById(id_label);
-			String displayScore = TeamNameHelper.getTeamName(
-					this, team) + " : ";
+			String displayScore = TeamNameHelper.getTeamName(this, team)
+					+ " : ";
 			displayScore += r.getQuantityString(R.plurals.points, points,
 					points);
 			txt.setText(displayScore);
@@ -348,7 +364,8 @@ public class MainActivity extends SherlockActivity implements
 	/**
 	 * Action called from any of the button
 	 * 
-	 * @param button The button pressed
+	 * @param button
+	 *            The button pressed
 	 */
 	public void onClick(View button) {
 		// Fetch team's point
@@ -377,7 +394,8 @@ public class MainActivity extends SherlockActivity implements
 		final int max = (isAllAsset ? sMatchAllAsset : sMatch);
 
 		// Error, input is to high (with match bonus)
-		if (button.getId() == R.id.btn_score && point > max && point != max + sBonus) {
+		if (button.getId() == R.id.btn_score && point > max
+				&& point != max + sBonus) {
 
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.error_high_value), Toast.LENGTH_LONG)
@@ -399,13 +417,15 @@ public class MainActivity extends SherlockActivity implements
 	}
 
 	/**
-	 * Managing button. Enable the button is an input is set, disable them otherwise.
-	 * Change the anounce button's color.
+	 * Managing button. Enable the button is an input is set, disable them
+	 * otherwise. Change the anounce button's color.
 	 */
 	public void textChangedListener() {
 		// If empty input
-		final boolean isEmpty1 = mInputScore1.getText().toString().trim().equals("");
-		final boolean isEmpty2 = mInputScore2.getText().toString().trim().equals("");
+		final boolean isEmpty1 = mInputScore1.getText().toString().trim()
+				.equals("");
+		final boolean isEmpty2 = mInputScore2.getText().toString().trim()
+				.equals("");
 		// Fetch buttons
 		final Button btn_score = (Button) findViewById(R.id.btn_score);
 		final Button btn_announcement = (Button) findViewById(R.id.btn_announcement);

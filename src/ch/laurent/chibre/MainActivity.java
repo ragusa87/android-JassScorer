@@ -21,6 +21,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -123,13 +124,28 @@ public class MainActivity extends SherlockActivity implements
 		supportInvalidateOptionsMenu();
 
 		// Get graphic layout
-		LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
+		final LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
 
 		// Remove previous views
 		layout.removeAllViews();
 		// If the score is not empty, display it.
 		if (mScore.isCancellable()) {
-			layout.addView(mGraph.getView());
+			final Activity activity = this;
+			// In a new thread, do : layout.addView(mGraph.getView());
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					final View v = mGraph.getView();
+					activity.runOnUiThread(new Runnable() {
+				        @Override
+				        public void run() {
+				    		LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
+				        	layout.addView(v);
+				        }
+				});
+				}
+			}).start();
 		}
 	}
 

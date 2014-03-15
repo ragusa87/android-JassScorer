@@ -19,8 +19,8 @@ public class ScoreStack extends Observable {
 	 * Internal class to stock the score
 	 */
 	static class Score {
-		public int score1;
-		public int score2;
+		int score1;
+		int score2;
 
 		/**
 		 * Set score
@@ -53,7 +53,7 @@ public class ScoreStack extends Observable {
 	 * Add score.
 	 * Negative score are remplaced by 0.
 	 */
-	private Score push(final Score s) {
+	private Score pushQuiet(final Score s) {
 		// no negative score
 		if (s.score1 < 0)
 			s.score1 = 0;
@@ -61,29 +61,18 @@ public class ScoreStack extends Observable {
 		if (s.score2 < 0)
 			s.score2 = 0;
 
-		Score s2 = stack.push(s);
-		// notify
-		setChanged();
-		notifyObservers();
-		return s2;
+		return stack.push(s);
 	}
-
-	/**
-	 * Add score
-	 * 
-     * @param score1 Score for team 1
-	 * @param score2 Score for team 2
-	 */
-	private void push(int score1, int score2) {
-		push(new Score(score1, score2));
+	
+	private Score pushQuiet(final int score1, final int score2){
+        return pushQuiet(new Score(score1, score2));
 	}
-
 	/**
 	 * Starting score is (0,0)
 	 */
 	public ScoreStack() {
 		// notifyObservers() sera appele
-		set(0, 0);
+		setAndNotify(0, 0);
 	}
 
 	/**
@@ -92,11 +81,11 @@ public class ScoreStack extends Observable {
 	 * @param score1 Score for team 1
 	 * @param score2 Score for team 2
 	 */
-	public void set(final int score1, final int score2) {
+	private void setAndNotify(final int score1, final int score2) {
 		stack.clear();
-		this.push(new Score(score1, score2));
-		setChanged();
+		this.pushQuiet(new Score(score1, score2));
 		notifyObservers();
+
 	}
 
 	/**
@@ -105,10 +94,9 @@ public class ScoreStack extends Observable {
 	 * @param score1 Score for team 1
 	 * @param score2 Score for team 2
 	 */
-	public void add(final int score1, final int score2) {
+	public void addAndNotify(final int score1, final int score2) {
 		Score s = (stack.isEmpty() ? new Score(0, 0) : stack.peek());
-		this.push(new Score(s.score1 + score1, s.score2 + score2));
-		setChanged();
+		this.pushQuiet(new Score(s.score1 + score1, s.score2 + score2));
 		notifyObservers();
 	}
 
@@ -122,7 +110,7 @@ public class ScoreStack extends Observable {
 		int score1 = (team == 1 ? announce : 0);
 		int score2 = (team == 2 ? announce : 0);
 		// notifyObservers() will be called.
-		this.add(score1, score2);
+		this.addAndNotify(score1, score2);
 	}
 
 	/**
@@ -141,7 +129,7 @@ public class ScoreStack extends Observable {
 	 */
 	public void reset() {
 		// notifyObservers() will be called
-		set(0, 0);
+		setAndNotify(0, 0);
 	}
 
 	/**
@@ -155,12 +143,19 @@ public class ScoreStack extends Observable {
 		// Be sure the stack is never empty
 		if (stack.empty()) {
 			// notifyObservers() will be called
-			set(0, 0);
+			setAndNotify(0, 0);
 		} else {
 			// We notify in this case..
-			setChanged();
 			notifyObservers();
 		}
+	}
+	
+	/**
+	 * Notify observer with an implicit setChanged.
+	 */
+	public void notifyObservers(){
+		setChanged();
+		super.notifyObservers();
 	}
 
 	/**
@@ -219,7 +214,8 @@ public class ScoreStack extends Observable {
 		for (int i = 0; i < tmpScores.length; i++) {
 			score = tmpScores[i].split(",");
 			// Score = score1,score2
-			push(Integer.valueOf(score[0]), Integer.valueOf(score[1]));
+			pushQuiet(Integer.valueOf(score[0]), Integer.valueOf(score[1]));
 		}
+		notifyObservers();
 	}
 }

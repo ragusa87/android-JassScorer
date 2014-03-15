@@ -1,5 +1,6 @@
 .settings
 lint.xml
+download/
 
 *.class
 

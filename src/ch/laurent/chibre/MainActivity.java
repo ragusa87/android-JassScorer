@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,10 +71,11 @@ public class MainActivity extends SherlockActivity implements
 
 	// Graphs
 	private ScoreGraph mGraph;
+	private Thread mGraphWorker;
 	// Game coefficient (F.ex: 2x for double spade)
 	private int mCoefficient = 1;
 
-	// Elements de controles
+	// Inputs elements
 	private RatingBar mRatingBar;
 	private EditText mInputScore1;
 	private EditText mInputScore2;
@@ -119,6 +121,9 @@ public class MainActivity extends SherlockActivity implements
 	 * Mise a jour du graphique
 	 */
 	public void graphUpdate() {
+		if(false)
+			return;
+		
 		// Update actionbar
 		supportInvalidateOptionsMenu();
 
@@ -128,24 +133,30 @@ public class MainActivity extends SherlockActivity implements
 			// In a new thread, do :
 			// - layout.removeAllViews();
 			// - layout.addView(mGraph.getView());
-			new Thread(new Runnable() {
+			waitForGraphicWorker();
+			mGraphWorker = new Thread(new Runnable() {
 
 				@Override
 				public void run() {
 					final View v = mGraph.getView();
+					final LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
+					layout.postInvalidate();
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							LinearLayout layout = (LinearLayout) findViewById(R.id.layoutGraph);
 							// Remove previous views
 							synchronized (activity) {
 								layout.removeAllViews();
 								layout.addView(v);
+								layout.invalidate();
 							}
 						}
 					});
 				}
-			}).start();
+			});
+			mGraphWorker.start();
+		}else{
+			Log.v("JassScorer","No need to display graph");
 		}
 	}
 
@@ -163,6 +174,8 @@ public class MainActivity extends SherlockActivity implements
 		ed.putFloat(sSaveRating, mRatingBar.getRating());
 		// Sauve
 		ed.commit();
+		
+		waitForGraphicWorker();
 	}
 
 	/**
@@ -452,6 +465,16 @@ public class MainActivity extends SherlockActivity implements
 		btn_score.setTextAppearance(getApplicationContext(), style_score);
 		btn_announcement.setTextAppearance(getApplicationContext(), style_an);
 
+	}
+	
+	private void waitForGraphicWorker(){
+		try {
+			if (mGraphWorker != null)
+				mGraphWorker.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

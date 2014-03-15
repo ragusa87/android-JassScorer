@@ -28,6 +28,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -104,6 +105,7 @@ public class MainActivity extends SherlockActivity implements
 		mGraph = new ScoreGraph(this, mScore) {
 			public void update(Observable observable, Object data) {
 				// On score change, update graphic and score
+				Log.v("JassScorer","Updating graph");
 				graphUpdate();
 				displayScore();
 			}
@@ -289,9 +291,9 @@ public class MainActivity extends SherlockActivity implements
 		}
 		// Add point to both teams.
 		if (team == 1) {
-			mScore.add(point, rest);
+			mScore.addAndNotify(point, rest);
 		} else { // And vice-versa
-			mScore.add(rest, point);
+			mScore.addAndNotify(rest, point);
 		}
 	}
 
